@@ -196,87 +196,85 @@ def simulating_games_from_preflop_stage(stage, *start_hands):
 
 # Creating dataframe with all texas hold'em outcomes
 
-all_poker_outcomes = {"id_vals": [], "id_suits": [], "set_name": [], "set_value": []}
-all_poker_boards = combinations(deck, 7)
-boards_to_remove = set()
-cntr = 0
+def creating_all_7_element_combinations_from_poker_deck(deck, filepath):
 
-start = time.perf_counter()
+    all_poker_boards = combinations(deck, 7)
+    boards_to_remove = set()
+    cntr = 0
 
-with open('all_poker_outcomes', 'w', encoding='utf-8') as f:
-    f.write('id_vals, id_suits, set_name, set_value,\n')
-    for combination in all_poker_boards:
-        board = sorted(combination, key=lambda card: card.value)
-        board_set = frozenset(board)
-        if board_set in boards_to_remove:
-            boards_to_remove.remove(board_set)
-            print("Ilość elementów w boards_to_remove: ", len(boards_to_remove))
-            continue
-        vals = board[0].value + board[1].value * 0.01 + board[2].value * 0.0001 + board[3].value * 0.000001 + board[
-            4].value * 0.00000001 + board[5].value * 0.0000000001 + board[6].value * 0.000000000001
+    start = time.perf_counter()
 
-        id_vals = str(int(vals * 100000000000000))
+    with open(filepath, 'w', encoding='utf-8') as f:
+        f.write('id_vals, id_suits, set_name, set_value,\n')
+        for combination in all_poker_boards:
+            board = sorted(combination, key=lambda card: card.value)
+            board_set = frozenset(board)
+            if board_set in boards_to_remove:
+                boards_to_remove.remove(board_set)
+                print("Ilość elementów w boards_to_remove: ", len(boards_to_remove))
+                continue
+            vals = board[0].value + board[1].value * 0.01 + board[2].value * 0.0001 + board[3].value * 0.000001 + board[
+                4].value * 0.00000001 + board[5].value * 0.0000000001 + board[6].value * 0.000000000001
 
-
-        max_set_value = 0
-        highest_set = "Highest_Card"
-
-        for hand in combinations(board, 5):
-            check = checking_hand(hand)
-
-            if check[1] > max_set_value:
-                max_set_value = check[1]
-                highest_set = check[0].hand_name
-
-        set_name = highest_set
-        set_value = max_set_value
-        sts_combs = {'\u2663': set(), '\u2666': set(), '\u2665': set(), '\u2660': set()}
-
-        for card in board:
-            sts_combs[card.suit].add(card.rank)
-
-        suits_perms = set()
-        for perm in permutations(sts_combs.values()):
-            suits_perms.add(tuple(tuple(ranks) for ranks in perm))
-
-        for el in suits_perms:
-            similar_board = []
-            sts_combs['\u2663'] = el[0]
-            sts_combs['\u2666'] = el[1]
-            sts_combs['\u2665'] = el[2]
-            sts_combs['\u2660'] = el[3]
-
-            for suit, val in sts_combs.items():
-                for m in range(len(val)):
-                    similar_board.append(Card(val[m], suit))
-
-            similar_board = sorted(similar_board, key=lambda card: card.value)
-
-            if similar_board != board:
-                boards_to_remove.add(frozenset(similar_board))
-
-            sts = {('clubs', '\u2663'): [], ('diamonds', '\u2666'): [], ('hearts', '\u2665'): [], ('spades', '\u2660'): []}
-            for idx in range(len(similar_board)):
-                if similar_board[idx].suit == '\u2663':
-                    sts[('clubs', '\u2663')].append(idx)
-                elif similar_board[idx].suit == '\u2666':
-                    sts[('diamonds', '\u2666')].append(idx)
-                elif similar_board[idx].suit == '\u2665':
-                    sts[('hearts', '\u2665')].append(idx)
-                else:
-                    sts[('spades', '\u2660')].append(idx)
-
-            id_suits = [sts[('clubs', '\u2663')], sts[('diamonds', '\u2666')], sts[('hearts', '\u2665')],
-                        sts[('spades', '\u2660')]]
-            f.write(f'{id_vals}, {id_suits}, {set_name}, {set_value}, \n')
-            cntr += 1
-            print('Ilość kombinacji: ', cntr)
+            id_vals = str(int(vals * 100000000000000))
 
 
+            max_set_value = 0
+            highest_set = "Highest_Card"
 
-end = time.perf_counter()
+            for hand in combinations(board, 5):
+                check = checking_hand(hand)
 
-print(end - start)
+                if check[1] > max_set_value:
+                    max_set_value = check[1]
+                    highest_set = check[0].hand_name
 
+            set_name = highest_set
+            set_value = max_set_value
+            sts_combs = {'\u2663': set(), '\u2666': set(), '\u2665': set(), '\u2660': set()}
 
-f.close()
+            for card in board:
+                sts_combs[card.suit].add(card.rank)
+
+            suits_perms = set()
+            for perm in permutations(sts_combs.values()):
+                suits_perms.add(tuple(tuple(ranks) for ranks in perm))
+
+            for el in suits_perms:
+                similar_board = []
+                sts_combs['\u2663'] = el[0]
+                sts_combs['\u2666'] = el[1]
+                sts_combs['\u2665'] = el[2]
+                sts_combs['\u2660'] = el[3]
+
+                for suit, val in sts_combs.items():
+                    for m in range(len(val)):
+                        similar_board.append(Card(val[m], suit))
+
+                similar_board = sorted(similar_board, key=lambda card: card.value)
+
+                if similar_board != board:
+                    boards_to_remove.add(frozenset(similar_board))
+
+                sts = {('clubs', '\u2663'): [], ('diamonds', '\u2666'): [], ('hearts', '\u2665'): [], ('spades', '\u2660'): []}
+                for idx in range(len(similar_board)):
+                    if similar_board[idx].suit == '\u2663':
+                        sts[('clubs', '\u2663')].append(idx)
+                    elif similar_board[idx].suit == '\u2666':
+                        sts[('diamonds', '\u2666')].append(idx)
+                    elif similar_board[idx].suit == '\u2665':
+                        sts[('hearts', '\u2665')].append(idx)
+                    else:
+                        sts[('spades', '\u2660')].append(idx)
+
+                id_suits = [sts[('clubs', '\u2663')], sts[('diamonds', '\u2666')], sts[('hearts', '\u2665')],
+                            sts[('spades', '\u2660')]]
+                f.write(f'{id_vals}, {id_suits}, {set_name}, {set_value}, \n')
+                cntr += 1
+                print('Ilość kombinacji: ', cntr)
+
+    end = time.perf_counter()
+
+    print("Total working time: ", end - start)
+
+    f.close()
