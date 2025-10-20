@@ -1,11 +1,8 @@
 from collections import Counter
-from itertools import combinations, permutations
+from itertools import combinations
 import math
-import pandas as pd
 import time
-import csv
-
-import dwumian_Newtona
+import sqlite3 as sql
 
 # Creating class of cards and deck
 
@@ -66,6 +63,18 @@ Flop = Stage('flop', 2, [])
 Turn = Stage('turn', 1, [])
 River = Stage('river', 0, [])
 
+
+def canonical_form(comb):
+    mapping = {}
+    next_symbol = ord('A')
+    result = []
+    for s in comb:
+        if s not in mapping:
+            mapping[s] = chr(next_symbol)
+            next_symbol += 1
+        result.append(mapping[s])
+    return ''.join(result)
+
 def checking_hand(hand):
 
     set = Highest_Card
@@ -76,8 +85,7 @@ def checking_hand(hand):
     rank_counts = Counter([card.rank for card in hand])
     is_flush = len(suit) == 1
     is_straight = len(rank_counts) == 5 and (hand[0].value == hand[-1].value + 0.28 or
-                                             (hand[0].rank == "A" and hand[1].rank == "5" and hand[2].rank == "4" and
-                                              hand[3].rank == "3" and hand[4].rank == "2"))
+                                             (hand[0].rank == "A" and hand[1].rank == "5"))
 
     # determining poker hand and its value
 
@@ -196,85 +204,59 @@ def simulating_games_from_preflop_stage(stage, *start_hands):
 
 # Creating dataframe with all texas hold'em outcomes
 
-def creating_all_7_element_combinations_from_poker_deck(deck, filepath):
+def creating_all_7_element_combinations_from_poker_deck(deck, sql_driver):
 
+    con = sql_driver.connect("Poker_Database.db")
+    cur = con.cursor()
+    cur.execute("""CREATE TABLE IF NOT EXISTS All_Poker_Outcomes(suits_repr CHAR(7), vals_repr CHAR(14), set_name VARCHAR(15), set_value REAL, PRIMARY KEY (suits_repr, vals_repr));""")
     all_poker_boards = combinations(deck, 7)
-    boards_to_remove = set()
-    cntr = 0
-
+    suit_code = {"\u2660": 's', "\u2666": 'd', "\u2665": 'h', "\u2663": 'c'}
+    idx = 0
+    times = 1
+    batch = []
     start = time.perf_counter()
+    start1 = time.perf_counter()
 
-    with open(filepath, 'w', encoding='utf-8') as f:
-        f.write('id_vals, id_suits, set_name, set_value,\n')
-        for combination in all_poker_boards:
-            board = sorted(combination, key=lambda card: card.value)
-            board_set = frozenset(board)
-            if board_set in boards_to_remove:
-                boards_to_remove.remove(board_set)
-                print("Ilość elementów w boards_to_remove: ", len(boards_to_remove))
-                continue
-            vals = board[0].value + board[1].value * 0.01 + board[2].value * 0.0001 + board[3].value * 0.000001 + board[
-                4].value * 0.00000001 + board[5].value * 0.0000000001 + board[6].value * 0.000000000001
+    for combination in all_poker_boards:
+        board = sorted(combination, key=lambda card: card.value)
+        suits = []
+        for card in board:
+            suits.append(card.suit)
 
-            id_vals = str(int(vals * 100000000000000))
+        suits_repr = canonical_form(suits)
 
+        vals = board[0].value + board[1].value * 0.01 + board[2].value * 0.0001 + board[3].value * 0.000001 + board[
+            4].value * 0.00000001 + board[5].value * 0.0000000001 + board[6].value * 0.000000000001
 
-            max_set_value = 0
-            highest_set = "Highest_Card"
+        vals_repr = str(vals)[2:16]
 
-            for hand in combinations(board, 5):
-                check = checking_hand(hand)
+        max_set_value = 0
+        highest_set = "Highest_Card"
 
-                if check[1] > max_set_value:
-                    max_set_value = check[1]
-                    highest_set = check[0].hand_name
+        for hand in combinations(board, 5):
+            check = checking_hand(hand)
 
-            set_name = highest_set
-            set_value = max_set_value
-            sts_combs = {'\u2663': set(), '\u2666': set(), '\u2665': set(), '\u2660': set()}
+            if check[1] > max_set_value:
+                max_set_value = check[1]
+                highest_set = check[0].hand_name
 
-            for card in board:
-                sts_combs[card.suit].add(card.rank)
+        set_name = highest_set
+        set_value = max_set_value
 
-            suits_perms = set()
-            for perm in permutations(sts_combs.values()):
-                suits_perms.add(tuple(tuple(ranks) for ranks in perm))
+        batch.append((suits_repr, vals_repr, set_name, set_value))
 
-            for el in suits_perms:
-                similar_board = []
-                sts_combs['\u2663'] = el[0]
-                sts_combs['\u2666'] = el[1]
-                sts_combs['\u2665'] = el[2]
-                sts_combs['\u2660'] = el[3]
+        if idx == 500000:
+            cur.executemany(
+                """INSERT OR IGNORE INTO All_Poker_Outcomes(suits_repr, vals_repr, set_name, set_value) VALUES (?, ?, ?, ?)""", batch)
+            batch.clear()
+            print(idx*times, " W czasie: ", time.perf_counter() - start1)
+            con.commit()
+            idx = 0
+            times += 1
+            start1 = time.perf_counter()
+        idx += 1
 
-                for suit, val in sts_combs.items():
-                    for m in range(len(val)):
-                        similar_board.append(Card(val[m], suit))
-
-                similar_board = sorted(similar_board, key=lambda card: card.value)
-
-                if similar_board != board:
-                    boards_to_remove.add(frozenset(similar_board))
-
-                sts = {('clubs', '\u2663'): [], ('diamonds', '\u2666'): [], ('hearts', '\u2665'): [], ('spades', '\u2660'): []}
-                for idx in range(len(similar_board)):
-                    if similar_board[idx].suit == '\u2663':
-                        sts[('clubs', '\u2663')].append(idx)
-                    elif similar_board[idx].suit == '\u2666':
-                        sts[('diamonds', '\u2666')].append(idx)
-                    elif similar_board[idx].suit == '\u2665':
-                        sts[('hearts', '\u2665')].append(idx)
-                    else:
-                        sts[('spades', '\u2660')].append(idx)
-
-                id_suits = [sts[('clubs', '\u2663')], sts[('diamonds', '\u2666')], sts[('hearts', '\u2665')],
-                            sts[('spades', '\u2660')]]
-                f.write(f'{id_vals}, {id_suits}, {set_name}, {set_value}, \n')
-                cntr += 1
-                print('Ilość kombinacji: ', cntr)
-
+    con.commit()
     end = time.perf_counter()
 
     print("Total working time: ", end - start)
-
-    f.close()
