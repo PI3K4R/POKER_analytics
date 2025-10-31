@@ -11,8 +11,7 @@ ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A"]
 suits = ["\u2663", "\u2666", "\u2665", "\u2660"]
 
 class Card:
-    values = {"A": 0.91, "2": 0.07, "3": 0.14, "4": 0.21, "5": 0.28, "6": 0.35, "7": 0.42, "8": 0.49, "9": 0.56,
-              "T": 0.63, "J": 0.7, "Q": 0.77, "K": 0.84}
+    values = {"A": 0.91, "2": 0.07, "3": 0.14, "4": 0.21, "5": 0.28, "6": 0.35, "7": 0.42, "8": 0.49, "9": 0.56, "T": 0.63, "J": 0.7, "Q": 0.77, "K": 0.84}
 
     def __init__(self, rank, suit):
         self.rank = rank
@@ -122,13 +121,12 @@ def checking_hand(hand):
 
     elif sorted(list(rank_counts.values()), reverse=True)[0] == 3:
         set = Three_of_a_Kind
-        set_value = Three_of_a_Kind.hand_value + hand[2].value
+        set_value = Three_of_a_Kind.hand_value + hand[2].value + 0.0025 * (hand[0].value + hand[1].value + hand[3].value + hand[4].value)
 
     elif sorted(list(rank_counts.values()), reverse=True)[0] == 2 and sorted(rank_counts.values(),
                                                                              reverse=True)[1] == 2:
         set = Two_Pairs
-        set_value = (Two_Pairs.hand_value + hand[1].value + hand[3].value*0.01 + 0.00003*hand[0].value +
-                     0.00003*hand[-1].value + 0.00003*hand[2].value)
+        set_value = Two_Pairs.hand_value + hand[1].value + hand[3].value*0.01 + 0.00003 * (hand[0].value + hand[-1].value + hand[2].value)
 
     elif sorted(list(rank_counts.values()), reverse=True)[0] == 2:
         x = 0
@@ -136,7 +134,7 @@ def checking_hand(hand):
             if hand[i].value == hand[i - 1].value:
                 x = hand[i].value
         set = Pair
-        set_value = Pair.hand_value + x
+        set_value = Pair.hand_value + x + 0.002 * (hand[0].value + hand[1].value + hand[2].value + hand[3].value + hand[4].value)
 
     return set, set_value
 
@@ -145,60 +143,51 @@ def checking_hand(hand):
 
 # start_hands as a tuple which elements are lists with two Card objects inside it
 
-def simulating_games_from_preflop_stage(stage, *start_hands):
-    used_cards = [card for hand in start_hands for card in hand]
+def simulating_games_from_given_stage(stage, *start_hands):
+    used_cards = [card for hand in start_hands for card in hand[0]]
     game_deck = [i for i in deck if i not in used_cards]
     wins = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     draws = 0
     loses = 0
 
     # Creating unique boards for better simulation results
-    sets = combinations(game_deck, stage.board)
-
+    sets = combinations(game_deck, stage.board_unrevealed)
+    suits_order = ['\u2660', '\u2665', '\u2666', '\u2663']
+    start = time.perf_counter()
     for board in sets:
         all_hands = {}
-        # Counting values for each given hand + chosen board
         for index, hand in enumerate(start_hands):
-            checked_set = list(combinations(list(hand) + list(board), 5))
-            highest_set = "Highest_Card"
-            starting_hand_value = (sorted(hand, key=lambda card: card.value, reverse=True)[0].value +
-                                    0.01*sorted(hand, key=lambda card: card.value, reverse=True)[1].value)
-            max_set_value = starting_hand_value
+            checked_set = sorted(list(hand) + list(board), key=lambda c: (c.value, suits_order.index(c.suit)))
 
-            for x in checked_set:
-                check = checking_hand(x)
+            vals_repr = checked_set[0].rank + checked_set[1].rank + checked_set[2].rank + checked_set[3].rank + checked_set[4].rank + checked_set[5].rank + checked_set[6].rank
 
-                if check[1] > max_set_value:
-                    max_set_value = check[1]
-                    highest_set = check[0].hand_name
+            suits = []
+            for card in checked_set:
+                suits.append(card.suit)
 
-            all_hands[index] = (highest_set, max_set_value, starting_hand_value)
+            suits_repr = canonical_form(suits)
 
-    # Comparing values of starting hands and determining, which hand is a winner (assuming: all_hands[0] is checked, other hands are opponents, so their wins are counted as loses for main hand
+            set_name, set_value = start_hands[index][1][(suits_repr, vals_repr)]
+
+            all_hands[index] = (set_name, set_value)
+
+    # Comparing values of starting hands and determining, which hand is a winner (assuming: all_hands[0] is checked, other hands are opponents, so their wins are counted as loses
 
         winning_value = max(val[1] for val in all_hands.values())
-        winning_set = [val[0] for val in all_hands.values() if val[1] == winning_value]
-        winning_starting_hand = max(val[2] for val in all_hands.values())
-        winning_players_at_start = [idx for idx, val in all_hands.items() if val[2] == winning_starting_hand]
         winning_players = [idx for idx, val in all_hands.items() if val[1] == winning_value]
-
-        if '0' not in [str(player) for player in winning_players]:
+        
+        if 0 not in winning_players:
             loses += 1
 
         elif len(winning_players) == 1 and winning_players[0] == 0:
             wins[math.floor(winning_value)] += 1
 
-        elif '0' in [str(player) for player in winning_players_at_start] and len(winning_players_at_start) == 1 and winning_set not in ("Two_Pairs", "Four_of_a_Kind", "Highest_Card"):
-            wins[math.floor(winning_value)] += 1
-
-        elif '0' not in [str(player) for player in winning_players_at_start] and winning_set not in ("Two_Pairs", "Four_of_a_Kind", "Highest_Card"):
-            loses += 1
-
         else:
             draws += 1
 
-
-
+    end = time.perf_counter()
+    print(end - start)
+    print(wins + [draws, loses])
     return wins + [draws, loses]
 
 
@@ -206,11 +195,11 @@ def simulating_games_from_preflop_stage(stage, *start_hands):
 
 def creating_all_7_element_combinations_from_poker_deck(deck, sql_driver):
 
-    con = sql_driver.connect("Poker_Database.db")
+    con = sql_driver.connect("/Users/pi3k4r/Desktop/POKER_analytics/Poker_Database.db")
     cur = con.cursor()
-    cur.execute("""CREATE TABLE IF NOT EXISTS All_Poker_Outcomes(suits_repr CHAR(7), vals_repr CHAR(14), set_name VARCHAR(15), set_value REAL, PRIMARY KEY (suits_repr, vals_repr));""")
+    cur.execute("""CREATE TABLE IF NOT EXISTS All_Poker_Outcomes(suits_repr CHAR(7), vals_repr CHAR(7), set_name VARCHAR(15), set_value REAL, PRIMARY KEY (suits_repr, vals_repr));""")
+    deck = sorted(deck, key= lambda c: c.value)
     all_poker_boards = combinations(deck, 7)
-    suit_code = {"\u2660": 's', "\u2666": 'd', "\u2665": 'h', "\u2663": 'c'}
     idx = 0
     times = 1
     batch = []
@@ -218,32 +207,25 @@ def creating_all_7_element_combinations_from_poker_deck(deck, sql_driver):
     start1 = time.perf_counter()
 
     for combination in all_poker_boards:
-        board = sorted(combination, key=lambda card: card.value)
         suits = []
-        for card in board:
+        for card in combination:
             suits.append(card.suit)
 
         suits_repr = canonical_form(suits)
 
-        vals = board[0].value + board[1].value * 0.01 + board[2].value * 0.0001 + board[3].value * 0.000001 + board[
-            4].value * 0.00000001 + board[5].value * 0.0000000001 + board[6].value * 0.000000000001
-
-        vals_repr = str(vals)[2:16]
+        vals_repr = combination[0].rank + combination[1].rank + combination[2].rank + combination[3].rank + combination[4].rank + combination[5].rank + combination[6].rank
 
         max_set_value = 0
-        highest_set = "Highest_Card"
+        highest_set = ""
 
-        for hand in combinations(board, 5):
+        for hand in combinations(combination, 5):
             check = checking_hand(hand)
 
             if check[1] > max_set_value:
                 max_set_value = check[1]
                 highest_set = check[0].hand_name
 
-        set_name = highest_set
-        set_value = max_set_value
-
-        batch.append((suits_repr, vals_repr, set_name, set_value))
+        batch.append((suits_repr, vals_repr, highest_set, max_set_value))
 
         if idx == 500000:
             cur.executemany(
@@ -260,3 +242,9 @@ def creating_all_7_element_combinations_from_poker_deck(deck, sql_driver):
     end = time.perf_counter()
 
     print("Total working time: ", end - start)
+
+
+creating_all_7_element_combinations_from_poker_deck(deck, sql)
+
+
+    
