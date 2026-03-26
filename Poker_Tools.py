@@ -1,11 +1,9 @@
 from collections import Counter
 from itertools import combinations
-import math
 import time
 import sqlite3 as sql
-import numpy as np
 
-# Creating class of cards and deck
+# Class Card and deck
 
 ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A"]
 suits = ["\u2663", "\u2666", "\u2665", "\u2660"]
@@ -30,7 +28,9 @@ class Card:
 
 deck = [Card(rank, suit) for rank in ranks for suit in suits]
 
-# Poker hands
+
+
+# Class Poker hands
 
 class Poker_Hands:
 
@@ -57,8 +57,10 @@ Four_of_a_Kind = Poker_Hands("Four_of_a_Kind")
 Straight_Flush = Poker_Hands("Straight_Flush")
 Royal_Flush = Poker_Hands("Royal_Flush")
 
+
+# Class Stage
 class Stage:
-    def __init__(self, stage_name, board_unrevealed, board_revealed):
+    def __init__(self, stage_name: str, board_unrevealed: int, board_revealed: list):
         self.stage_name = stage_name
         self.board_unrevealed = board_unrevealed
         self.board_revealed = board_revealed
@@ -71,6 +73,14 @@ River = Stage('river', 0, [])
 
 
 def canonical_form(comb):
+
+    """
+    comb => any sequence of letters or numbers
+
+    Create unique representation for any board.
+    It helps reducing a number of all possible combinations of boards
+    """
+
     mapping = {}
     next_symbol = ord('A')
     result = []
@@ -83,6 +93,13 @@ def canonical_form(comb):
 
 
 def checking_hand(hand):
+
+    """
+    hand => A list of five Card objects.
+
+    Calculating 'hand' value and it's hand name
+    """
+
 
     set = Highest_Card
     hand = sorted(hand, key=lambda card: card.value, reverse=True)
@@ -143,28 +160,38 @@ def checking_hand(hand):
     return set, set_value
 
 
-# Counting number of wins grouped by poker hand, draws and loses
+def simulating_games_from_given_stage(stage: Stage, *start_hands):
 
-# start_hands as a tuple which elements are lists with two Card objects inside it
+    """
+    stage => Starting point of simulation (Preflop, Flop, Turn, River),
+    *start_hands => tuple of lists containing two elements:
+                    - a list of two Card objects (representing Player_i starting hand),
+                    - a dictionary of records from database which contains any information of hand value and name
 
-def simulating_games_from_given_stage(stage, *start_hands):
-    used_cards = [card for hand in start_hands for card in hand[0]]
+    A crucial functions for analysis equities. It loops over all possible combinations of cards from deck
+    and calulates first player equity vs given opponents starting hands.
+    """
+
+    used_cards = [card for hand in start_hands for card in hand[0]] + stage.board_revealed
     game_deck = [i for i in deck if i not in used_cards]
     wins = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     overall_sets = [0 for _ in range(10)]
     draws = 0
     loses = 0
 
-    # Creating unique boards for better simulation results
+    # Creating unique boards
     sets = combinations(game_deck, stage.board_unrevealed)
     suits_order = ['\u2663', '\u2666', '\u2665', '\u2660']
-    start = time.perf_counter()
+
     for board in sets:
+        board = list(board)
+        board = board + stage.board_revealed
         all_hands = {}
         for index, hand in enumerate(start_hands):
-            checked_set = sorted(list(hand[0]) + list(board), key=lambda c: (c.value, suits_order.index(c.suit)))
-
-            vals_repr = checked_set[0].rank + checked_set[1].rank + checked_set[2].rank + checked_set[3].rank + checked_set[4].rank + checked_set[5].rank + checked_set[6].rank
+            checked_set = sorted(list(hand[0]) + board, key=lambda c: (c.value, suits_order.index(c.suit)))
+            vals_repr = ""
+            for card in checked_set:
+                vals_repr += card.rank
 
             suits = []
             for card in checked_set:
@@ -176,7 +203,6 @@ def simulating_games_from_given_stage(stage, *start_hands):
 
             all_hands[index] = (set_name, set_value)
 
-    # Comparing values of starting hands and determining, which hand is a winner (assuming: all_hands[0] is checked, other hands are opponents, so their wins are counted as loses
 
         winning_value = max(val[1] for val in all_hands.values())
         winning_players = [idx for idx, val in all_hands.items() if val[1] == winning_value]
@@ -192,24 +218,25 @@ def simulating_games_from_given_stage(stage, *start_hands):
 
         overall_sets[Poker_Hands(all_hands[0][0]).hand_value] += 1
 
-    end = time.perf_counter()
-    print(end - start)
-    print([el[0] for el in start_hands])
-    print(wins + [draws, loses])
-    print("Overall: ", overall_sets)
     return wins + [draws, loses]
 
 
 # Creating dataframe with all texas hold'em outcomes
 
-def creating_all_7_element_combinations_from_poker_deck(deck, sql_driver):
+def creating_all_n_element_combinations_from_poker_deck(deck, sql_driver, n: int):
 
-    con = sql_driver.connect("/Users/pi3k4r/Desktop/POKER_analytics/Poker_Database.db")
+    """
+    deck => deck of cards,
+    sql_driver => a sqlite3.cursor object which is connected to Poker_Database
+    n => a parameter {5, 6, 7} which determines what table we want to create
+    (a table of all n-elements combinations of cards will be created with assigned Poker set name and it's value)
+    """
+
+    con = sql_driver.connect("Poker_Database.db")
     cur = con.cursor()
-    cur.execute("""CREATE TABLE IF NOT EXISTS All_Poker_Outcomes(suits_repr CHAR(7), vals_repr CHAR(7), set_name VARCHAR(15), set_value REAL, PRIMARY KEY (suits_repr, vals_repr));""")
+    cur.execute(f"""CREATE TABLE IF NOT EXISTS All_Poker_{n}_element_Outcomes(suits_repr CHAR({n}), vals_repr CHAR({n}), set_name VARCHAR(15), set_value REAL, PRIMARY KEY (suits_repr, vals_repr));""")
     deck = sorted(deck, key= lambda c: c.value)
-    deck = [card for card in deck if card.rank in ['2', '4', '3']]
-    all_poker_boards = combinations(deck, 7)
+    all_poker_boards = combinations(deck, n)
     idx = 0
     times = 1
     batch = []
@@ -218,13 +245,15 @@ def creating_all_7_element_combinations_from_poker_deck(deck, sql_driver):
     start1 = time.perf_counter()
 
     for combination in all_poker_boards:
-        combination = sorted(combination, key= lambda c: (c.value, suits_order.index(c.suit)))
+        combination = sorted(combination, key=lambda c: (c.value, suits_order.index(c.suit)))
         suits = []
         for card in combination:
             suits.append(card.suit)
 
         suits_repr = canonical_form(suits)
-        vals_repr = combination[0].rank + combination[1].rank + combination[2].rank + combination[3].rank + combination[4].rank + combination[5].rank + combination[6].rank
+        vals_repr = ""
+        for card in combination:
+            vals_repr += card.rank
 
         max_set_value = 0
         highest_set = ""
@@ -240,7 +269,7 @@ def creating_all_7_element_combinations_from_poker_deck(deck, sql_driver):
 
         if idx == 500000:
             cur.executemany(
-                """INSERT OR IGNORE INTO All_Poker_Outcomes(suits_repr, vals_repr, set_name, set_value) VALUES (?, ?, ?, ?)""", batch)
+                f"""INSERT OR IGNORE INTO All_Poker_{n}_element_Outcomes(suits_repr, vals_repr, set_name, set_value) VALUES (?, ?, ?, ?)""", batch)
             batch.clear()
             print(idx*times, " W czasie: ", time.perf_counter() - start1)
             con.commit()
@@ -249,57 +278,62 @@ def creating_all_7_element_combinations_from_poker_deck(deck, sql_driver):
             start1 = time.perf_counter()
         idx += 1
     cur.executemany(
-        """INSERT OR IGNORE INTO All_Poker_Outcomes(suits_repr, vals_repr, set_name, set_value) VALUES (?, ?, ?, ?)""", batch)
+        f"""INSERT OR IGNORE INTO All_Poker_{n}_element_Outcomes(suits_repr, vals_repr, set_name, set_value) VALUES (?, ?, ?, ?)""", batch)
     con.commit()
     end = time.perf_counter()
 
     print("Total working time: ", end - start)
 
-# creating_all_7_element_combinations_from_poker_deck(deck, sql)
+def subset_of_db(n, sql_cursor, set_name=None, *hand_ranks):
 
-# deck = sorted(deck, key= lambda c: c.value)
-# deck = [card for card in deck if card.rank in ['9', 'T', 'J', 'Q', 'K', 'A']]
-# all_poker_boards = combinations(deck, 7)
-# con = sql.connect("/Users/pi3k4r/Desktop/POKER_analytics/Poker_Database.db")
-# cur = con.cursor()
-# all_poker_boards = combinations(deck, 7)
-# idx = 0
-# times = 1
-# batch = []
-# suits_order = ['\u2663', '\u2666', '\u2665', '\u2660']
-# start = time.perf_counter()
-# start1 = time.perf_counter()
+    """
+    n => a parameter from {5, 6, 7} which determines a table we want to select data
+    sql_cursor => a sqlite3.cursor object connected to Poker_Database
 
-# for combination in all_poker_boards:
-#     combination = sorted(combination, key= lambda c: (c.value, suits_order.index(c.suit)))
-#     suits = []
-#     for card in combination:
-#         suits.append(card.suit)
-
-#     suits_repr = canonical_form(suits)
-
-#     vals_repr = combination[0].rank + combination[1].rank + combination[2].rank + combination[3].rank + combination[4].rank + combination[5].rank + combination[6].rank
-
-#     max_set_value = 0
-#     highest_set = ""
-
-#     for hand in combinations(combination, 5):
-#         check = checking_hand(hand)
-
-#         if check[1] > max_set_value:
-#             max_set_value = check[1]
-#             highest_set = check[0].hand_name
-
-#     batch.append((suits_repr, vals_repr, highest_set, max_set_value))
+    This function is often used with simulating_games_from_given_stage as an argument of every list in *start_hands.
+    It selects a subset of all possible poker outcomes to reduce data and fasten simulations duration.
+    """
 
 
-# cur.executemany(
-#     """INSERT OR IGNORE INTO All_Poker_Outcomes(suits_repr, vals_repr, set_name, set_value) VALUES (?, ?, ?, ?)""", batch)
-# con.commit()
-# end = time.perf_counter()
+    ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A"]
+    hand_ranks = sorted(hand_ranks, key=lambda c: ranks.index(c))
+    expression_for_select_operation = ''
 
-# print("Total working time: ", end - start)
+    for rank in hand_ranks:
+        expression_for_select_operation += f'%{rank}%'
 
-# con.commit()
+    if not set_name:
+        result = sql_cursor.execute(
+            f"""SELECT * FROM All_Poker_{n}_element_Outcomes WHERE vals_repr LIKE \'{expression_for_select_operation}\'
+        """)
+        subset = {(v, s): (set_name, set_value) for v, s, set_name, set_value in result}
 
-# creating_all_7_element_combinations_from_poker_deck(deck, sql)
+    else:
+        result = sql_cursor.execute(
+            f"""SELECT * FROM All_Poker_{n}_element_Outcomes WHERE vals_repr LIKE '{expression_for_select_operation}'
+                AND set_name='{set_name}'""")
+        subset = {(v, s): (set_name, set_value) for v, s, set_name, set_value in result}
+
+    return subset
+
+def list_of_opponents(n, player_cards: list, board_revealed_cards: list, deck, sql_cur: sql.Cursor):
+
+    """
+    n => a parameter which determines a table from which we'll fetch the data,
+    player_cards => a list of lists. Every internal list contains two Card objects which are opponent's hand,
+    board_revealed_cards => it depends on a chosen stage. This variable could be an empty list or list with Card objects
+    representing current board status,
+    deck => a deck of Card objects,
+    sql_cur => a sqlite3.cursor object which is connected to Poker_Database
+    """
+
+
+    used_cards = sorted(player_cards + board_revealed_cards, key=lambda c: c.value)
+    ranks = [card.rank for card in board_revealed_cards]
+    opponents = combinations([card for card in deck if card not in used_cards], 2)
+    subset = subset_of_db(n, sql_cur, None, *ranks)
+
+    return opponents, subset
+
+
+
