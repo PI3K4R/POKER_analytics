@@ -12,9 +12,9 @@ def dwumian(n, k):
     for i in range(1, n-k+1):
         wynik /= i
 
-    return wynik
+    return int(wynik)
 
-print(4*dwumian(48,6) + 6*dwumian(48,5) + 4*dwumian(48,4) + dwumian(48, 3))
+print(dwumian(4,2)*dwumian(48,3))
 
 
 
