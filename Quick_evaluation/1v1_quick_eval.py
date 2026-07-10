@@ -1,4 +1,5 @@
-from phevaluator.evaluator import evaluate_cards
+from phevaluator.card import Card
+from phevaluator.evaluator import _evaluate_cards
 from itertools import combinations, repeat
 from concurrent.futures import ProcessPoolExecutor, as_completed
 import os
@@ -6,7 +7,7 @@ import csv
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
-RANKS = [2, 3, 4, 5, 6, 7, 8, 9, "T", "J", "Q", "K", "A"]
+RANKS = ["A", "K", "Q", "J", "T", "9", "8", "7", "6", "5", "4", "3", "2"]
 SUITS = ["c", "d", "h", "s"]
 SUITS_MAP = {"c": "\u2663", "d": "\u2666", "h": "\u2665", "s": "\u2660"}
 
@@ -24,17 +25,20 @@ def simulate_hand(hand: str, WRITE_MATCHUP_CSV: bool = False) -> tuple[str, int,
     card1, card2 = hand.split(",")
     hero_cards = (card1, card2)
     game_deck = [c for c in DECK if c not in hero_cards]
+    hero_ids = (Card.to_id(card1), Card.to_id(card2))
 
     if WRITE_MATCHUP_CSV:
         rows = [["Opponent", "Wins", "Draws", "Loses", "Equity%"]]
 
     for op1, op2 in combinations(game_deck, 2):
-        remaining = [c for c in game_deck if c not in (op1, op2)]
+        remaining = [Card.to_id(c) for c in game_deck if c not in (op1, op2)]
         wins_op = draws_op = loses_op = 0
+        op1_id = Card.to_id(op1)
+        op2_id = Card.to_id(op2)
 
         for board in combinations(remaining, 5):
-            hero_rank = evaluate_cards(*board, *hero_cards)
-            villain_rank = evaluate_cards(*board, op1, op2)
+            hero_rank = _evaluate_cards(*board, *hero_ids)
+            villain_rank = _evaluate_cards(*board, op1_id, op2_id)
 
             if hero_rank < villain_rank:
                 wins_op += 1
@@ -52,7 +56,8 @@ def simulate_hand(hand: str, WRITE_MATCHUP_CSV: bool = False) -> tuple[str, int,
         wins += wins_op
         draws += draws_op
         loses += loses_op
-        print("KUPAGOWNOCHUUUUJ")
+        print("Hand: ", hand, "\n", "Opponent: ", f"{op1}{op2}\n", "STATS\n", "Wins: ", wins_op, "\nDraws: ", draws_op, "\nLoses: ", loses_op)
+
     return hand, wins, draws, loses
 
 
