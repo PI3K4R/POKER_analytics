@@ -57,6 +57,8 @@ def simulate_hand(
                 round((wins_op + 0.5 * draws_op) * 100 / total_op, 2),
             ])
 
+        print("Hand: ", f"{card1}{card2}", "\nVS: ", f"{op1}{op2}", "\nWins: ", wins_op, "\nDraws: ", draws_op, "\nLoses: ", loses_op, "\nEquity%: ", round((wins_op + 0.5 * draws_op) * 100 / total_op, 2))
+
         wins += wins_op
         draws += draws_op
         loses += loses_op
@@ -69,7 +71,7 @@ def simulate_hand(
 
 if __name__ == "__main__":
     WRITE_MATCHUP_CSV = True
-    max_workers = max(1, (os.cpu_count() or 4) - 4)
+    max_workers = os.cpu_count()
     print("Max workers:", max_workers)
 
     rows_suited = [["Hand", "Wins", "Draws", "Loses", "Equity%"]]
