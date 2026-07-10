@@ -1,4 +1,5 @@
-from phevaluator.evaluator import evaluate_cards
+from phevaluator.card import Card
+from phevaluator.evaluator import _evaluate_cards
 from itertools import combinations, repeat
 from concurrent.futures import ProcessPoolExecutor
 import os
@@ -21,24 +22,43 @@ def write_results(path: Path, rows: list[list]) -> None:
         csv.writer(f).writerows(rows)
 
 
+def load_hand_stats(path: Path) -> tuple[int, int, int]:
+    wins = draws = loses = 0
+    with path.open(newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            wins += int(row["Wins"])
+            draws += int(row["Draws"])
+            loses += int(row["Loses"])
+    return wins, draws, loses
+
+
 def simulate_hand(
     hand: str,
     write_matchup_csv: bool = False,
     output_dir: Path | None = None,
 ) -> tuple[str, int, int, int]:
+    if write_matchup_csv and output_dir is not None:
+        output_path = output_dir / f"{hand}.csv"
+        if output_path.exists():
+            wins, draws, loses = load_hand_stats(output_path)
+            return hand, wins, draws, loses
+
     wins = draws = loses = 0
     card1, card2 = hand.split(",")
     hero_cards = (card1, card2)
     game_deck = [c for c in DECK if c not in hero_cards]
+    hero_ids = (Card.to_id(card1), Card.to_id(card2))
     rows = [["Opponent", "Wins", "Draws", "Loses", "Equity%"]] if write_matchup_csv else None
 
     for op1, op2 in combinations(game_deck, 2):
-        remaining = [c for c in game_deck if c not in (op1, op2)]
+        remaining = [Card.to_id(c) for c in game_deck if c not in (op1, op2)]
         wins_op = draws_op = loses_op = 0
+        op1_id = Card.to_id(op1)
+        op2_id = Card.to_id(op2)
 
         for board in combinations(remaining, 5):
-            hero_rank = evaluate_cards(*board, *hero_cards)
-            villain_rank = evaluate_cards(*board, op1, op2)
+            hero_rank = _evaluate_cards(*board, *hero_ids)
+            villain_rank = _evaluate_cards(*board, op1_id, op2_id)
 
             if hero_rank < villain_rank:
                 wins_op += 1
@@ -57,8 +77,6 @@ def simulate_hand(
                 round((wins_op + 0.5 * draws_op) * 100 / total_op, 2),
             ])
 
-        print("Hand: ", f"{card1}{card2}", "\nVS: ", f"{op1}{op2}", "\nWins: ", wins_op, "\nDraws: ", draws_op, "\nLoses: ", loses_op, "\nEquity%: ", round((wins_op + 0.5 * draws_op) * 100 / total_op, 2))
-
         wins += wins_op
         draws += draws_op
         loses += loses_op
@@ -71,7 +89,7 @@ def simulate_hand(
 
 if __name__ == "__main__":
     WRITE_MATCHUP_CSV = True
-    max_workers = os.cpu_count()
+    max_workers = max(1, (os.cpu_count() or 4) - 4)
     print("Max workers:", max_workers)
 
     rows_suited = [["Hand", "Wins", "Draws", "Loses", "Equity%"]]
