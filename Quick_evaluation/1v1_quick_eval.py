@@ -22,11 +22,27 @@ def write_results(path: Path, rows: list[list]) -> None:
         csv.writer(f).writerows(rows)
 
 
+def load_hand_stats(path: Path) -> tuple[int, int, int]:
+    wins = draws = loses = 0
+    with path.open(newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            wins += int(row["Wins"])
+            draws += int(row["Draws"])
+            loses += int(row["Loses"])
+    return wins, draws, loses
+
+
 def simulate_hand(
     hand: str,
     write_matchup_csv: bool = False,
     output_dir: Path | None = None,
 ) -> tuple[str, int, int, int]:
+    if write_matchup_csv and output_dir is not None:
+        output_path = output_dir / f"{hand}.csv"
+        if output_path.exists():
+            wins, draws, loses = load_hand_stats(output_path)
+            return hand, wins, draws, loses
+
     wins = draws = loses = 0
     card1, card2 = hand.split(",")
     hero_cards = (card1, card2)
