@@ -1,5 +1,5 @@
 from phevaluator.card import Card
-from phevaluator.evaluator import _evaluate_cards
+from phevaluator.evaluator import evaluate_cards
 from itertools import combinations, repeat
 from concurrent.futures import ProcessPoolExecutor
 import os
@@ -48,38 +48,105 @@ def simulate_hand(
     hero_cards = (card1, card2)
     game_deck = [c for c in DECK if c not in hero_cards]
     hero_ids = (Card.to_id(card1), Card.to_id(card2))
+    deck_ids = [Card.to_id(c) for c in game_deck]
+
     rows = [["Opponent", "Wins", "Draws", "Loses", "Equity%"]] if write_matchup_csv else None
 
-    for op1, op2 in combinations(game_deck, 2):
-        remaining = [Card.to_id(c) for c in game_deck if c not in (op1, op2)]
-        wins_op = draws_op = loses_op = 0
-        op1_id = Card.to_id(op1)
-        op2_id = Card.to_id(op2)
+    if card1[1] == card2[1]:
+        card1 = card1[0] + "c"
+        card2 = card2[0] + "c"
+        suited_sm = [Card.to_id(c) for c in game_deck if c[1] == "c"]
+        suited_diff = [Card.to_id(c) for c in game_deck if c[1] == "d"]
 
-        for board in combinations(remaining, 5):
-            hero_rank = _evaluate_cards(*board, *hero_ids)
-            villain_rank = _evaluate_cards(*board, op1_id, op2_id)
+        suited_vs_1offsuit = [(c1, c2) for c1 in suited_sm for c2 in suited_diff]
+        suited_vs_2offsuit = []
+        seen = set()
+        for c1 in game_deck:
+            if c1[1] != "d":
+                continue
+            for c2 in game_deck:
+                if c2[1] != "h":
+                    continue
 
-            if hero_rank < villain_rank:
-                wins_op += 1
-            elif hero_rank > villain_rank:
-                loses_op += 1
+                values = tuple(sorted((c1[0], c2[0]), key=lambda x: ord(x)))
+                if values not in seen:
+                    seen.add(values)
+                    suited_vs_2offsuit.append((Card.to_id(c1), Card.to_id(c2)))
+        suited_vs_suited_diff = combinations(suited_diff, 2)
+        suited_vs_suited_sm = combinations(suited_sm, 2)
+
+        list_of_opps = [(suited_vs_1offsuit, 3), (suited_vs_2offsuit, 'mark_s'), (suited_vs_suited_diff, 3), (suited_vs_suited_sm, 1)]
+
+    else:
+        card1 = card1[0] + "c"
+        card2 = card2[0] + "d"
+        suited_sm = [Card.to_id(c) for c in game_deck if c[1] == "c"]
+        suited_diff = [Card.to_id(c) for c in game_deck if c[1] == "h"]
+
+        suited_vs_1offsuit = combinations(suited_sm, 2)
+        offsuit_vs_1offsuit = [(c1, c2) for c1 in suited_sm for c2 in suited_diff]
+        suited_vs_2offsuit = combinations(suited_diff, 2)
+        offsuit_vs_2offsuit_diff = []
+        seen = set()
+        for c1 in game_deck:
+            if c1[1] != "h":
+                continue
+            for c2 in game_deck:
+                if c2[1] != "s":
+                    continue
+
+                values = tuple(sorted((c1[0], c2[0]), key=lambda x: ord(x)))
+                if values not in seen:
+                    seen.add(values)
+                    offsuit_vs_2offsuit_diff.append((Card.to_id(c1), Card.to_id(c2)))
+        offsuit_vs_2offsuit_sm = [(Card.to_id(c1), Card.to_id(c2)) for c1 in game_deck if c1[1] == "c" for c2 in game_deck if c2[1] == "d"]
+
+        list_of_opps = [(suited_vs_1offsuit, 2), (offsuit_vs_1offsuit, 4), (suited_vs_2offsuit, 2), (offsuit_vs_2offsuit_diff, 'mark_o'), (offsuit_vs_2offsuit_sm, 1)]
+
+    for opponents in list_of_opps:
+        for op1, op2 in opponents[0]:
+            if opponents[1] == 'mark_s':
+                multiplier = 3 if op1 // 4 == op2 // 4 else 6
+            elif opponents[1] == 'mark_o':
+                multiplier = 1 if op1 // 4 == op2 // 4 else 2
             else:
-                draws_op += 1
+                multiplier = opponents[1]
 
-        if write_matchup_csv:
-            total_op = wins_op + draws_op + loses_op
-            rows.append([
-                f"{op1}{op2}",
-                wins_op,
-                draws_op,
-                loses_op,
-                round((wins_op + 0.5 * draws_op) * 100 / total_op, 2),
-            ])
+            remaining = [c for c in deck_ids if c not in (op1, op2)]
+            wins_op = draws_op = loses_op = 0
 
-        wins += wins_op
-        draws += draws_op
-        loses += loses_op
+            for board in combinations(remaining, 5):
+                hero_rank = evaluate_cards(*board, *hero_ids)
+                villain_rank = evaluate_cards(*board, op1, op2)
+
+                if hero_rank < villain_rank:
+                    wins_op += multiplier
+                elif hero_rank > villain_rank:
+                    loses_op += multiplier
+                else:
+                    draws_op += multiplier
+
+            if write_matchup_csv:
+                total_op = wins_op + draws_op + loses_op
+                rows.append([
+                    f"{Card(op1).describe_card()}{Card(op2).describe_card()}",
+                    wins_op,
+                    draws_op,
+                    loses_op,
+                    round((wins_op + 0.5 * draws_op) * 100 / total_op, 2),
+                ])
+                print(
+                    "Hero vs Villain:",
+                    f"{card1}{card2}_vs_{Card(op1).describe_card()}{Card(op2).describe_card()}",
+                    "\nWins:", wins_op,
+                    "\nDraws:", draws_op,
+                    "\nLoses:", loses_op,
+                    "\nEquity_%:", round((wins_op + 0.5 * draws_op) * 100 / total_op, 2),
+                )
+
+            wins += wins_op
+            draws += draws_op
+            loses += loses_op
 
     if write_matchup_csv and output_dir is not None:
         write_results(output_dir / f"{hand}.csv", rows)
@@ -89,7 +156,7 @@ def simulate_hand(
 
 if __name__ == "__main__":
     WRITE_MATCHUP_CSV = True
-    max_workers = max(1, (os.cpu_count() or 4) - 4)
+    max_workers = os.cpu_count()
     print("Max workers:", max_workers)
 
     rows_suited = [["Hand", "Wins", "Draws", "Loses", "Equity%"]]
