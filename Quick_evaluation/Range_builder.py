@@ -2,7 +2,7 @@ from random import sample
 from typing import Literal
 
 from phevaluator.card import Card
-from phevaluator.evaluator import _evaluate_cards
+from phevaluator.evaluator import evaluate_cards
 
 
 RANKS = ["A", "K", "Q", "J", "T", "9", "8", "7", "6", "5", "4", "3", "2"]
@@ -62,11 +62,11 @@ def _simulate_hand_ev(
     for _ in range(sim_number):
         game_cards = sample(remaining_deck, cards_to_draw)
         b0, b1, b2, b3, b4 = game_cards[-5:]
-        hero_rank = _evaluate_cards(b0, b1, b2, b3, b4, hero_ids[0], hero_ids[1])
+        hero_rank = evaluate_cards(b0, b1, b2, b3, b4, hero_ids[0], hero_ids[1])
         has_draw = False
 
         for i in range(0, cards_to_draw - 5, 2):
-            villain_rank = _evaluate_cards(
+            villain_rank = evaluate_cards(
                 b0, b1, b2, b3, b4, game_cards[i], game_cards[i + 1]
             )
             if villain_rank < hero_rank:

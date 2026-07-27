@@ -17,12 +17,22 @@ START_HANDS_OFFSUIT = [f"{RANKS[i]}c,{RANKS[j]}d" for i in range(len(RANKS)) for
 
 
 def write_results(path: Path, rows: list[list]) -> None:
+    """
+    Writes given rows into given file (creates it if doesn't exists)
+    :param path: Path to the file
+    :param rows: Data to write into file
+    """
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", newline="", encoding="utf-8") as f:
         csv.writer(f).writerows(rows)
 
 
 def load_hand_stats(path: Path) -> tuple[int, int, int]:
+    """
+    It provides quick access to wins, draws and loses for specific start hand if file with statistics already exists
+    :param path: Path to the file
+    :return: A tuple = (wins, draws, loses)
+    """
     wins = draws = loses = 0
     with path.open(newline="", encoding="utf-8") as f:
         for row in csv.DictReader(f):
@@ -37,6 +47,13 @@ def simulate_hand(
     write_matchup_csv: bool = False,
     output_dir: Path | None = None,
 ) -> tuple[str, int, int, int]:
+    """
+    Evaluates given start hands in all possible 1v1 games (for each opponent it iterates on all possible boards)
+    :param hand: Given starting hand
+    :param write_matchup_csv: Optional parameter. If True, it creates csv file with detailed information about hand evaluation
+    :param output_dir: Optional parameter. If write_matchup_csv is true, this variable is pointing at directory, where new file will be saved (if None, the file will appear in directory with this script).
+    :return: A tuple (wins, draws, loses)
+    """
     if write_matchup_csv and output_dir is not None:
         output_path = output_dir / f"{hand}.csv"
         if output_path.exists():
