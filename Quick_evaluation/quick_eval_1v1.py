@@ -12,13 +12,13 @@ SUITS = ["c", "d", "h", "s"]
 SUITS_MAP = {"c": "\u2663", "d": "\u2666", "h": "\u2665", "s": "\u2660"}
 
 DECK = [f"{RANKS[i]}{SUITS[j]}" for i in range(len(RANKS)) for j in range(len(SUITS))]
-START_HANDS_SUITED = [f"{RANKS[i]}c,{RANKS[j]}c" for i in range(len(RANKS)) for j in range(i + 1, len(RANKS))]
-START_HANDS_OFFSUIT = [f"{RANKS[i]}c,{RANKS[j]}d" for i in range(len(RANKS)) for j in range(i, len(RANKS))]
+START_HANDS_SUITED = [f"{RANKS[i]}c_{RANKS[j]}c" for i in range(len(RANKS)) for j in range(i + 1, len(RANKS))]
+START_HANDS_OFFSUIT = [f"{RANKS[i]}c_{RANKS[j]}d" for i in range(len(RANKS)) for j in range(i, len(RANKS))]
 
 
 def write_results(path: Path, rows: list[list]) -> None:
     """
-    Writes given rows into given file (creates it if doesn't exists)
+    Writes given rows into given file (creates it if it doesn't exist)
     :param path: Path to the file
     :param rows: Data to write into file
     """
@@ -31,7 +31,7 @@ def load_hand_stats(path: Path) -> tuple[int, int, int]:
     """
     It provides quick access to wins, draws and loses for specific start hand if file with statistics already exists
     :param path: Path to the file
-    :return: A tuple = (wins, draws, loses)
+    :return: A tuple (wins, draws, loses)
     """
 
     wins = draws = loses = 0
@@ -52,12 +52,25 @@ def simulate_hand(
     Evaluates given start hands in all possible 1v1 games (for each opponent it iterates on all possible boards)
     :param hand: Given starting hand
     :param write_matchup_csv: Optional parameter. If True, it creates csv file with detailed information about hand evaluation
-    :param output_dir: Optional parameter. If write_matchup_csv is true, this variable is pointing at directory, where new file will be saved (if None, the file will appear in directory with this script).
+    :param output_dir: Optional parameter. If write_matchup_csv is true, this variable is pointing at directory, where new file will be saved (if None, the file will not be saved).
     :return: A tuple (wins, draws, loses)
     """
-
+    RANKS = ["A", "K", "Q", "J", "T", "9", "8", "7", "6", "5", "4", "3", "2"]
+    card1, card2 = hand.split("_")
+    high_idx, low_idx = sorted([RANKS.index(r) for r in (card1[0], card2[0])])
     wins = draws = loses = 0
-    card1, card2 = hand.split(",")
+
+    if output_dir is not None:
+        file_path = output_dir / f"{RANKS[high_idx]}_{RANKS[low_idx]}.csv"
+        if file_path.exists():
+            with file_path.open(newline="", encoding="utf-8") as f:
+                for row in csv.DictReader(f):
+                    wins += int(row["Wins"])
+                    draws += int(row["Draws"])
+                    loses += int(row["Loses"])
+
+            return hand, wins, draws, loses
+
     hero_cards = (card1, card2)
     game_deck = [c for c in DECK if c not in hero_cards]
     hero_ids = (Card.to_id(card1), Card.to_id(card2))
@@ -167,14 +180,14 @@ def simulate_hand(
             loses += loses_op
 
     if write_matchup_csv and output_dir is not None:
-        write_results(output_dir / f"{hand}.csv", rows)
+        write_results(output_dir / f"{RANKS[high_idx]}_{RANKS[low_idx]}.csv", rows)
 
     return hand, wins, draws, loses
 
 
 if __name__ == "__main__":
     WRITE_MATCHUP_CSV = True
-    max_workers = max(1, (os.cpu_count() or 4) - 4)
+    max_workers = os.cpu_count()
     print("Max workers:", max_workers)
 
     rows_suited = [["Hand", "Wins", "Draws", "Loses", "Equity%"]]
