@@ -7,7 +7,6 @@ import pandas as pd
 import seaborn as sns
 
 RANKS = ["A", "K", "Q", "J", "T", "9", "8", "7", "6", "5", "4", "3", "2"]
-FILENAME_RANKS = ["2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A"]
 
 BASE_DIR = Path(__file__).resolve().parent
 ROOT_DIR_SUITED = BASE_DIR / "Suited"
@@ -19,10 +18,10 @@ def csv_filename(rank_a: str, rank_b: str) -> str:
     param rank_a: Rank of a first card
     param rank_b: Rank of a second card
 
-    Returns csv files names accordingly to naming convention ("{rank_a}_{rank_b}.csv") where rank_a <= rank_b
+    Returns csv files names accordingly to naming convention ("{rank_a}{suit}_{rank_b}{suit}.csv") where rank_a >= rank_b
     """
-    low_idx, high_idx = sorted(FILENAME_RANKS.index(r) for r in (rank_a, rank_b))
-    return f"{FILENAME_RANKS[low_idx]}_{FILENAME_RANKS[high_idx]}.csv"
+    high_idx, low_idx = sorted([RANKS.index(r) for r in (rank_a, rank_b)], reverse=True)
+    return f"{RANKS[high_idx]}_{RANKS[low_idx]}.csv"
 
 
 def load_overall_equity(root_dir: Path, rank_a: str, rank_b: str) -> float | None:
