@@ -1,6 +1,6 @@
 from pathlib import Path
 import pytest
-from overall_1v1_equity_preflop import load_overall_equity, csv_filename, hand_label
+from Quick_evaluation.overall_1v1_equity_preflop import load_overall_equity, csv_filename, hand_label
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 SUITED_DIR = PROJECT_ROOT / "Quick_evaluation" / "Suited"
