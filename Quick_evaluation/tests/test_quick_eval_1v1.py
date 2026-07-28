@@ -3,7 +3,7 @@ import pandas as pd
 from pathlib import Path
 from Quick_evaluation.quick_eval_1v1 import write_results, load_hand_stats, simulate_hand
 
-BASE_DIR = Path(__file__).resolve().parent[2]
+BASE_DIR = Path(__file__).resolve().parent
 PATH_TO_TEST_FILE = BASE_DIR / "Fixtures//Test123.csv"
 
 def test_write_results(tmp_path):
