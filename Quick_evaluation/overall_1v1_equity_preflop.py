@@ -25,6 +25,13 @@ def csv_filename(rank_a: str, rank_b: str) -> str:
 
 
 def load_overall_equity(root_dir: Path, rank_a: str, rank_b: str) -> float | None:
+    """
+    From existing files with evaluation of hand: rank_a, rank_b (suited or not) this function gets it's number of wins, draws and loses
+    :param root_dir: Suited or offsuit catalog
+    :param rank_a: Rank of first card in hand
+    :param rank_b: Rank of second card in hand
+    :return: Equity with formula: (sum_wins + 0.5*sum_draws) / (sum_wins + sum_loses + sum_draws) * 100
+    """
     filename = csv_filename(rank_a, rank_b)
     sum_wins = 0.0
     sum_draws = 0.0
@@ -43,23 +50,33 @@ def load_overall_equity(root_dir: Path, rank_a: str, rank_b: str) -> float | Non
 
     if not found or sum_wins + sum_loses == 0:
         return None
-    return sum_wins / (sum_wins + sum_loses) * 100
+    return (sum_wins + 0.5*sum_draws) / (sum_wins + sum_loses + sum_draws) * 100
 
 
 def hand_label(row_rank: str, col_rank: str) -> str:
+    """
+    Function which gets starting hand based on it's position in a grid
+    :param row_rank: Row index in a grid
+    :param col_rank: Column index in a grid
+    :return: Starting hand with 's' or 'o' (depends on a suits) in format '{rank1}{rank2}{suffix}'
+    """
+
     if row_rank == col_rank:
         return f"{row_rank}{col_rank}"
 
-    high, low = (
-        (row_rank, col_rank)
-        if RANKS.index(row_rank) < RANKS.index(col_rank)
-        else (col_rank, row_rank)
+    high, low, suffix = (
+        (row_rank, col_rank, "o")
+        if RANKS.index(row_rank) > RANKS.index(col_rank)
+        else (col_rank, row_rank, "s")
     )
-    suffix = "s" if RANKS.index(row_rank) < RANKS.index(col_rank) else "o"
+
     return f"{high}{low}{suffix}"
 
 
 def build_gto_equity_grid() -> tuple[np.ndarray, np.ndarray]:
+    """
+    :return: Building raw Poker grid with equity for all hands (suited and offsuit)
+    """
     grid = np.full((len(RANKS), len(RANKS)), np.nan)
     labels = np.empty((len(RANKS), len(RANKS)), dtype=object)
 
@@ -78,6 +95,11 @@ def build_gto_equity_grid() -> tuple[np.ndarray, np.ndarray]:
 
 
 def plot_gto_equity_grid(grid: np.ndarray, labels: np.ndarray) -> None:
+    """
+    :param grid: Numpy matrix with equities for all starting hands accordingly to standard Poker grids (suited pairs on a upper triangle of the matrix)
+    :param labels: Poker ranks in descending order to it's power
+    :return: Display and save Poker grid with 1v1 equities for all starting hands
+    """
     annot = np.empty_like(labels, dtype=object)
     for row_idx in range(len(RANKS)):
         for col_idx in range(len(RANKS)):
