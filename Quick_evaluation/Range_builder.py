@@ -33,6 +33,9 @@ RANK_TO_MATRIX_INDEX = {rank: idx for idx, rank in enumerate(RANKS)}
 
 
 def _build_start_hands() -> list[tuple[str, str]]:
+    """
+    :return: Creates a list with all possible starting hands in Poker Texas Hold'em
+    """
     hands: list[tuple[str, str]] = []
     for i, high_rank in enumerate(RANKS):
         for low_rank in RANKS[i:]:
@@ -54,6 +57,16 @@ def _simulate_hand_ev(
     bet_size: float,
     sim_number: int,
 ) -> dict:
+    """
+    Monte-Carlo simulation for {sim_number} games for estimating expecting winning value
+    :param hero_card_1: First card in hero hand (example: As, 6c)
+    :param hero_card_2: Second card in hero hand (example: As, 6c)
+    :param villains_count: Number of opponents (in this project it is a number of all opponents which are between hero and Big Blind)
+    :param bet_size: Hero's bet size
+    :param sim_number: Number of games to iterate
+    :return: Dictionary with statistics: wins, draws, loses, win_ratio, draw_ratio, loses_ratio and expected_value of winnings
+    """
+
     wins = draws = loses = 0
     hero_ids = (Card.to_id(hero_card_1), Card.to_id(hero_card_2))
     remaining_deck = [card_id for card_id in DECK_IDS if card_id not in hero_ids]
@@ -101,11 +114,22 @@ def _simulate_hand_ev(
 def range_builder(
     game: Literal["6max", "9max"] = "6max",
     position: str = "SB",
-    bet_size: float = 2.0,
+    bet_size: float = 1.5,
     pool_size: float = 1.5,
-    sim_number: int = 200000,
-    threshold: float = -0.05,
+    sim_number: int = 1000000,
+    threshold: float = 0.0,
 ) -> dict:
+    """
+    Function for creating ranges based on a position and bet amount. The main assumption is that the player is betting this amount only if expected winning of his bet is greater than given threshold.
+    :param game: Only two options available: '6max', '9max'
+    :param position: Position of betting player
+    :param bet_size: Bet amount
+    :param pool_size: Pool size before bet (in BB's)
+    :param sim_number: Number of games to iterate over and approximate winnings EV
+    :param threshold: A certain level. Hands which winning EV's are greater than threshold are added to the player range.
+    :return: Some meta information and data for creating GTO tables (based on a EV)
+    """
+
     positions = POSITIONS_6MAX if game == "6max" else POSITIONS_9MAX
 
     if position not in positions:
@@ -150,7 +174,6 @@ def range_builder(
 
         ev_matrix[matrix_row][matrix_col] = stats["ev"]
         playable_matrix[matrix_row][matrix_col] = is_playable
-        hand_matrix[matrix_row][matrix_col] = hand_key
 
     return {
         "meta": {
@@ -167,6 +190,5 @@ def range_builder(
             "labels": RANKS,
             "ev_matrix": ev_matrix,
             "playable_matrix": playable_matrix,
-            "hand_matrix": hand_matrix,
         },
     }
