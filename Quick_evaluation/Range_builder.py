@@ -1,6 +1,11 @@
+from pathlib import Path
 from random import sample
 from typing import Literal
 
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
+from matplotlib.colors import ListedColormap
 from phevaluator.card import Card
 from phevaluator.evaluator import evaluate_cards
 
@@ -55,7 +60,7 @@ def _simulate_hand_ev(
     hero_card_2: str,
     villains_count: int,
     bet_size: float,
-    sim_number: int,
+    sim_number: int
 ) -> dict:
     """
     Monte-Carlo simulation for {sim_number} games for estimating expecting winning value
@@ -117,7 +122,7 @@ def range_builder(
     bet_size: float = 1.5,
     pool_size: float = 1.5,
     sim_number: int = 1000000,
-    threshold: float = 0.0,
+    threshold: float = 0.0
 ) -> dict:
     """
     Function for creating ranges based on a position and bet amount. The main assumption is that the player is betting this amount only if expected winning of his bet is greater than given threshold.
@@ -192,3 +197,121 @@ def range_builder(
             "playable_matrix": playable_matrix,
         },
     }
+
+
+def _gto_hand_label(row_rank: str, col_rank: str) -> str:
+    """
+    Starting-hand label for a GTO grid cell.
+    Upper triangle (stronger row rank) is suited, lower triangle is offsuit.
+    """
+    if row_rank == col_rank:
+        return f"{row_rank}{col_rank}"
+
+    row_idx = RANKS.index(row_rank)
+    col_idx = RANKS.index(col_rank)
+    high_rank, low_rank = (row_rank, col_rank) if row_idx < col_idx else (col_rank, row_rank)
+    suffix = "s" if row_idx < col_idx else "o"
+    return f"{high_rank}{low_rank}{suffix}"
+
+
+def draw_playable_grid(
+    range_builder_obj: dict,
+    output_dir: str | Path | None = None,
+    show: bool = False,
+) -> Path:
+    """
+    Saves a GTO-style 13x13 grid showing which starting hands are profitable
+    to play for the position stored in a range_builder() result.
+    :param range_builder_obj: Dictionary returned by range_builder()
+    :param output_dir: Folder for the image. Created if missing.
+        Defaults to Quick_evaluation/playable_grids
+    :param show: If True, also display the figure
+    :return: Path to the saved PNG
+    """
+    if "meta" not in range_builder_obj or "heatmap" not in range_builder_obj:
+        raise ValueError("range_builder_obj must be the dictionary returned by range_builder()")
+
+    meta = range_builder_obj["meta"]
+    heatmap = range_builder_obj["heatmap"]
+    labels = heatmap.get("labels") or RANKS
+    playable_matrix = np.array(heatmap["playable_matrix"], dtype=object)
+    ev_matrix = np.array(heatmap["ev_matrix"], dtype=object)
+
+    if playable_matrix.shape != (len(labels), len(labels)):
+        raise ValueError("playable_matrix must be a 13x13 GTO heatmap")
+
+    if output_dir is None:
+        output_dir = Path(__file__).resolve().parent / "playable_grids"
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    playable_grid = np.full((len(labels), len(labels)), np.nan)
+    annot = np.empty((len(labels), len(labels)), dtype=object)
+
+    for row_idx, row_rank in enumerate(labels):
+        for col_idx, col_rank in enumerate(labels):
+            hand = _gto_hand_label(row_rank, col_rank)
+            is_playable = playable_matrix[row_idx, col_idx]
+            ev = ev_matrix[row_idx, col_idx] if ev_matrix.shape == playable_matrix.shape else None
+
+            if is_playable is None:
+                annot[row_idx, col_idx] = hand
+                continue
+
+            playable_grid[row_idx, col_idx] = 1.0 if is_playable else 0.0
+            if ev is None:
+                annot[row_idx, col_idx] = f"{hand}\n{'PLAY' if is_playable else 'FOLD'}"
+            else:
+                annot[row_idx, col_idx] = f"{hand}\n{float(ev):+.2f}"
+
+    fig, ax = plt.subplots(figsize=(14, 12))
+    sns.heatmap(
+        playable_grid,
+        ax=ax,
+        cmap=ListedColormap(["#cfcfcf", "#2e8b57"]),
+        vmin=0,
+        vmax=1,
+        xticklabels=labels,
+        yticklabels=labels,
+        square=True,
+        annot=annot,
+        fmt="",
+        cbar_kws={"label": "Playable"},
+        linewidths=0.5,
+        linecolor="white",
+        annot_kws={"size": 8},
+    )
+
+    colorbar = ax.collections[0].colorbar
+    colorbar.set_ticks([0.25, 0.75])
+    colorbar.set_ticklabels(["Fold", "Play"])
+
+    ax.set_title(
+        f"{meta['game']} {meta['position']} playable range "
+        f"(bet={meta['bet_size']} BB, threshold={meta['threshold']} BB)"
+    )
+    ax.set_xlabel("Second card")
+    ax.set_ylabel("First card")
+    ax.tick_params(axis="both", labelsize=11)
+
+    position = str(meta["position"]).replace("+", "plus")
+    filename = (
+        f"{meta['game']}_{position}_bet{meta['bet_size']}_"
+        f"thr{meta['threshold']}bb_playable_grid.png"
+    )
+    output_path = output_dir / filename
+
+    plt.tight_layout()
+    fig.savefig(output_path, dpi=150, bbox_inches="tight")
+    if show:
+        plt.show()
+    plt.close(fig)
+    return output_path
+
+
+if __name__ == "__main__":
+    for player in POSITIONS_6MAX.keys():
+        for bet in [1.0, 1.375, 2.25, 2.625, 3, 4.5, 6]:
+            game_metadata = range_builder(game="6max", position=player, bet_size=bet, pool_size=1.5, sim_number=1000000, threshold=0.0)
+            draw_playable_grid(game_metadata, "3BetPreflopRanges", show=True)
+
