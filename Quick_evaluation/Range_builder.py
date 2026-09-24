@@ -1,13 +1,17 @@
+import json
 from pathlib import Path
 from random import sample
 from typing import Literal
-
+import json
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 from matplotlib.colors import ListedColormap
 from phevaluator.card import Card
 from phevaluator.evaluator import evaluate_cards
+import os
+from concurrent.futures import ProcessPoolExecutor
+from itertools import repeat, product
 
 
 RANKS = ["A", "K", "Q", "J", "T", "9", "8", "7", "6", "5", "4", "3", "2"]
@@ -55,7 +59,7 @@ def _build_start_hands() -> list[tuple[str, str]]:
 START_HANDS = _build_start_hands()
 
 
-def _simulate_hand_ev(
+def _simulate_hand_ev_3bet(
     hero_card_1: str,
     hero_card_2: str,
     villains_count: int,
@@ -71,7 +75,7 @@ def _simulate_hand_ev(
     :param sim_number: Number of games to iterate
     :return: Dictionary with statistics: wins, draws, loses, win_ratio, draw_ratio, loses_ratio and expected_value of winnings
     """
-
+    
     wins = draws = loses = 0
     hero_ids = (Card.to_id(hero_card_1), Card.to_id(hero_card_2))
     remaining_deck = [card_id for card_id in DECK_IDS if card_id not in hero_ids]
@@ -151,9 +155,10 @@ def range_builder(
     by_hand: dict[str, dict] = {}
 
     for card1, card2 in START_HANDS:
-        stats = _simulate_hand_ev(card1, card2, villains_count, bet_size, sim_number)
+        stats = _simulate_hand_ev_3bet(card1, card2, villains_count, bet_size, sim_number)
         hand_key = f"{card1}{card2}"
-        is_playable = stats["ev"] >= threshold
+        print(f"Hand: {hand_key}\nEV: {stats["ev"]}\nPosition: {position}\nBet_size: {bet_size}\n\n")
+        is_playable = stats["ev"] > threshold
 
         row = RANK_TO_MATRIX_INDEX[card1[0]]
         col = RANK_TO_MATRIX_INDEX[card2[0]]
@@ -216,7 +221,7 @@ def _gto_hand_label(row_rank: str, col_rank: str) -> str:
 
 def draw_playable_grid(
     range_builder_obj: dict,
-    output_dir: str | Path | None = None,
+    output_dir: Path | None = None,
     show: bool = False,
 ) -> Path:
     """
@@ -228,10 +233,21 @@ def draw_playable_grid(
     :param show: If True, also display the figure
     :return: Path to the saved PNG
     """
+
     if "meta" not in range_builder_obj or "heatmap" not in range_builder_obj:
         raise ValueError("range_builder_obj must be the dictionary returned by range_builder()")
 
     meta = range_builder_obj["meta"]
+    
+    filename = (
+            f"{meta['game']}_{meta['position']}_bet{meta['bet_size']}_"
+            f"thr{meta['threshold']}bb_playable_grid.png"
+        )
+    output_path = output_dir / filename
+
+    if os.path.exists(output_path):
+        return output_path
+
     heatmap = range_builder_obj["heatmap"]
     labels = heatmap.get("labels") or RANKS
     playable_matrix = np.array(heatmap["playable_matrix"], dtype=object)
@@ -268,7 +284,7 @@ def draw_playable_grid(
     sns.heatmap(
         playable_grid,
         ax=ax,
-        cmap=ListedColormap(["#cfcfcf", "#2e8b57"]),
+        cmap=ListedColormap(["#cfcfcf", "#8b3c2e"]),
         vmin=0,
         vmax=1,
         xticklabels=labels,
@@ -276,7 +292,6 @@ def draw_playable_grid(
         square=True,
         annot=annot,
         fmt="",
-        cbar_kws={"label": "Playable"},
         linewidths=0.5,
         linecolor="white",
         annot_kws={"size": 8},
@@ -295,11 +310,6 @@ def draw_playable_grid(
     ax.tick_params(axis="both", labelsize=11)
 
     position = str(meta["position"]).replace("+", "plus")
-    filename = (
-        f"{meta['game']}_{position}_bet{meta['bet_size']}_"
-        f"thr{meta['threshold']}bb_playable_grid.png"
-    )
-    output_path = output_dir / filename
 
     plt.tight_layout()
     fig.savefig(output_path, dpi=150, bbox_inches="tight")
@@ -310,8 +320,19 @@ def draw_playable_grid(
 
 
 if __name__ == "__main__":
-    for player in POSITIONS_6MAX.keys():
-        for bet in [1.0, 1.375, 2.25, 2.625, 3, 4.5, 6]:
-            game_metadata = range_builder(game="6max", position=player, bet_size=bet, pool_size=1.5, sim_number=1000000, threshold=0.0)
-            draw_playable_grid(game_metadata, "3BetPreflopRanges", show=True)
+    tasks = [("6max", arg, 1.0, 1.5, 1000000, 0.0) for arg in POSITIONS_6MAX.keys()]
+    max_workers = min(os.cpu_count(), len(POSITIONS_6MAX.keys()))
+    print("Max workers: ", max_workers)
 
+    with ProcessPoolExecutor(max_workers=max_workers) as executor:
+        futures = [
+            executor.submit(range_builder, *task) for task in tasks
+        ]
+
+        for future in futures:
+            game_metadata = future.result()
+            draw_playable_grid(game_metadata, Path("3BetPreflopRanges"), show=False)
+
+            if not os.path.exists(f"3BetPreflopRanges//{game_metadata["meta"]["game"]}_{game_metadata["meta"]["position"]}_thr{game_metadata["meta"]["threshold"]}bb_metadata.json"):
+                with open(f"3BetPreflopRanges//{game_metadata["meta"]["game"]}_{game_metadata["meta"]["position"]}_thr{game_metadata["meta"]["threshold"]}bb_metadata.json", "w", encoding="utf-8") as file:
+                    json.dump(game_metadata, file, indent=4, ensure_ascii=False)

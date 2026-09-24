@@ -1,0 +1,2959 @@
+{
+    "meta": {
+        "game": "6max",
+        "position": "SB",
+        "villains_count": 1,
+        "bet_size": 1.0,
+        "pool_size": 1.5,
+        "sim_number": 1000000,
+        "threshold": 0.0
+    },
+    "by_hand": {
+        "AcAd": {
+            "hero_cards": [
+                "Ac",
+                "Ad"
+            ],
+            "suited": false,
+            "ev": 0.704667,
+            "playable": true,
+            "wins": 849588,
+            "draws": 5491,
+            "loses": 144921,
+            "win_ratio": 0.849588,
+            "draw_ratio": 0.005491,
+            "lose_ratio": 0.144921
+        },
+        "AcKc": {
+            "hero_cards": [
+                "Ac",
+                "Kc"
+            ],
+            "suited": true,
+            "ev": 0.340581,
+            "playable": true,
+            "wins": 662076,
+            "draws": 16429,
+            "loses": 321495,
+            "win_ratio": 0.662076,
+            "draw_ratio": 0.016429,
+            "lose_ratio": 0.321495
+        },
+        "AcKd": {
+            "hero_cards": [
+                "Ac",
+                "Kd"
+            ],
+            "suited": false,
+            "ev": 0.305775,
+            "playable": true,
+            "wins": 644514,
+            "draws": 16747,
+            "loses": 338739,
+            "win_ratio": 0.644514,
+            "draw_ratio": 0.016747,
+            "lose_ratio": 0.338739
+        },
+        "AcQc": {
+            "hero_cards": [
+                "Ac",
+                "Qc"
+            ],
+            "suited": true,
+            "ev": 0.32487000000000005,
+            "playable": true,
+            "wins": 653333,
+            "draws": 18204,
+            "loses": 328463,
+            "win_ratio": 0.653333,
+            "draw_ratio": 0.018204,
+            "lose_ratio": 0.328463
+        },
+        "AcQd": {
+            "hero_cards": [
+                "Ac",
+                "Qd"
+            ],
+            "suited": false,
+            "ev": 0.29011299999999995,
+            "playable": true,
+            "wins": 635775,
+            "draws": 18563,
+            "loses": 345662,
+            "win_ratio": 0.635775,
+            "draw_ratio": 0.018563,
+            "lose_ratio": 0.345662
+        },
+        "AcJc": {
+            "hero_cards": [
+                "Ac",
+                "Jc"
+            ],
+            "suited": true,
+            "ev": 0.30778800000000006,
+            "playable": true,
+            "wins": 643978,
+            "draws": 19832,
+            "loses": 336190,
+            "win_ratio": 0.643978,
+            "draw_ratio": 0.019832,
+            "lose_ratio": 0.33619
+        },
+        "AcJd": {
+            "hero_cards": [
+                "Ac",
+                "Jd"
+            ],
+            "suited": false,
+            "ev": 0.271898,
+            "playable": true,
+            "wins": 625490,
+            "draws": 20918,
+            "loses": 353592,
+            "win_ratio": 0.62549,
+            "draw_ratio": 0.020918,
+            "lose_ratio": 0.353592
+        },
+        "AcTc": {
+            "hero_cards": [
+                "Ac",
+                "Tc"
+            ],
+            "suited": true,
+            "ev": 0.29358700000000004,
+            "playable": true,
+            "wins": 635537,
+            "draws": 22513,
+            "loses": 341950,
+            "win_ratio": 0.635537,
+            "draw_ratio": 0.022513,
+            "lose_ratio": 0.34195
+        },
+        "AcTd": {
+            "hero_cards": [
+                "Ac",
+                "Td"
+            ],
+            "suited": false,
+            "ev": 0.25494200000000006,
+            "playable": true,
+            "wins": 616006,
+            "draws": 22930,
+            "loses": 361064,
+            "win_ratio": 0.616006,
+            "draw_ratio": 0.02293,
+            "lose_ratio": 0.361064
+        },
+        "Ac9c": {
+            "hero_cards": [
+                "Ac",
+                "9c"
+            ],
+            "suited": true,
+            "ev": 0.2555,
+            "playable": true,
+            "wins": 615012,
+            "draws": 25476,
+            "loses": 359512,
+            "win_ratio": 0.615012,
+            "draw_ratio": 0.025476,
+            "lose_ratio": 0.359512
+        },
+        "Ac9d": {
+            "hero_cards": [
+                "Ac",
+                "9d"
+            ],
+            "suited": false,
+            "ev": 0.21764600000000006,
+            "playable": true,
+            "wins": 595636,
+            "draws": 26374,
+            "loses": 377990,
+            "win_ratio": 0.595636,
+            "draw_ratio": 0.026374,
+            "lose_ratio": 0.37799
+        },
+        "Ac8c": {
+            "hero_cards": [
+                "Ac",
+                "8c"
+            ],
+            "suited": true,
+            "ev": 0.23861999999999994,
+            "playable": true,
+            "wins": 605022,
+            "draws": 28576,
+            "loses": 366402,
+            "win_ratio": 0.605022,
+            "draw_ratio": 0.028576,
+            "lose_ratio": 0.366402
+        },
+        "Ac8d": {
+            "hero_cards": [
+                "Ac",
+                "8d"
+            ],
+            "suited": false,
+            "ev": 0.19711499999999998,
+            "playable": true,
+            "wins": 583739,
+            "draws": 29637,
+            "loses": 386624,
+            "win_ratio": 0.583739,
+            "draw_ratio": 0.029637,
+            "lose_ratio": 0.386624
+        },
+        "Ac7c": {
+            "hero_cards": [
+                "Ac",
+                "7c"
+            ],
+            "suited": true,
+            "ev": 0.22076500000000004,
+            "playable": true,
+            "wins": 594485,
+            "draws": 31795,
+            "loses": 373720,
+            "win_ratio": 0.594485,
+            "draw_ratio": 0.031795,
+            "lose_ratio": 0.37372
+        },
+        "Ac7d": {
+            "hero_cards": [
+                "Ac",
+                "7d"
+            ],
+            "suited": false,
+            "ev": 0.17597799999999997,
+            "playable": true,
+            "wins": 571252,
+            "draws": 33474,
+            "loses": 395274,
+            "win_ratio": 0.571252,
+            "draw_ratio": 0.033474,
+            "lose_ratio": 0.395274
+        },
+        "Ac6c": {
+            "hero_cards": [
+                "Ac",
+                "6c"
+            ],
+            "suited": true,
+            "ev": 0.197519,
+            "playable": true,
+            "wins": 581449,
+            "draws": 34621,
+            "loses": 383930,
+            "win_ratio": 0.581449,
+            "draw_ratio": 0.034621,
+            "lose_ratio": 0.38393
+        },
+        "Ac6d": {
+            "hero_cards": [
+                "Ac",
+                "6d"
+            ],
+            "suited": false,
+            "ev": 0.15415399999999996,
+            "playable": true,
+            "wins": 558784,
+            "draws": 36586,
+            "loses": 404630,
+            "win_ratio": 0.558784,
+            "draw_ratio": 0.036586,
+            "lose_ratio": 0.40463
+        },
+        "Ac5c": {
+            "hero_cards": [
+                "Ac",
+                "5c"
+            ],
+            "suited": true,
+            "ev": 0.199069,
+            "playable": true,
+            "wins": 581028,
+            "draws": 37013,
+            "loses": 381959,
+            "win_ratio": 0.581028,
+            "draw_ratio": 0.037013,
+            "lose_ratio": 0.381959
+        },
+        "Ac5d": {
+            "hero_cards": [
+                "Ac",
+                "5d"
+            ],
+            "suited": false,
+            "ev": 0.15502700000000003,
+            "playable": true,
+            "wins": 557945,
+            "draws": 39137,
+            "loses": 402918,
+            "win_ratio": 0.557945,
+            "draw_ratio": 0.039137,
+            "lose_ratio": 0.402918
+        },
+        "Ac4c": {
+            "hero_cards": [
+                "Ac",
+                "4c"
+            ],
+            "suited": true,
+            "ev": 0.18094700000000002,
+            "playable": true,
+            "wins": 571554,
+            "draws": 37839,
+            "loses": 390607,
+            "win_ratio": 0.571554,
+            "draw_ratio": 0.037839,
+            "lose_ratio": 0.390607
+        },
+        "Ac4d": {
+            "hero_cards": [
+                "Ac",
+                "4d"
+            ],
+            "suited": false,
+            "ev": 0.13673200000000002,
+            "playable": true,
+            "wins": 548362,
+            "draws": 40008,
+            "loses": 411630,
+            "win_ratio": 0.548362,
+            "draw_ratio": 0.040008,
+            "lose_ratio": 0.41163
+        },
+        "Ac3c": {
+            "hero_cards": [
+                "Ac",
+                "3c"
+            ],
+            "suited": true,
+            "ev": 0.16496,
+            "playable": true,
+            "wins": 563534,
+            "draws": 37892,
+            "loses": 398574,
+            "win_ratio": 0.563534,
+            "draw_ratio": 0.037892,
+            "lose_ratio": 0.398574
+        },
+        "Ac3d": {
+            "hero_cards": [
+                "Ac",
+                "3d"
+            ],
+            "suited": false,
+            "ev": 0.11699799999999999,
+            "playable": true,
+            "wins": 538504,
+            "draws": 39990,
+            "loses": 421506,
+            "win_ratio": 0.538504,
+            "draw_ratio": 0.03999,
+            "lose_ratio": 0.421506
+        },
+        "Ac2c": {
+            "hero_cards": [
+                "Ac",
+                "2c"
+            ],
+            "suited": true,
+            "ev": 0.147436,
+            "playable": true,
+            "wins": 555015,
+            "draws": 37406,
+            "loses": 407579,
+            "win_ratio": 0.555015,
+            "draw_ratio": 0.037406,
+            "lose_ratio": 0.407579
+        },
+        "Ac2d": {
+            "hero_cards": [
+                "Ac",
+                "2d"
+            ],
+            "suited": false,
+            "ev": 0.09861900000000001,
+            "playable": true,
+            "wins": 529420,
+            "draws": 39779,
+            "loses": 430801,
+            "win_ratio": 0.52942,
+            "draw_ratio": 0.039779,
+            "lose_ratio": 0.430801
+        },
+        "KcKd": {
+            "hero_cards": [
+                "Kc",
+                "Kd"
+            ],
+            "suited": false,
+            "ev": 0.648316,
+            "playable": true,
+            "wins": 821396,
+            "draws": 5524,
+            "loses": 173080,
+            "win_ratio": 0.821396,
+            "draw_ratio": 0.005524,
+            "lose_ratio": 0.17308
+        },
+        "KcQc": {
+            "hero_cards": [
+                "Kc",
+                "Qc"
+            ],
+            "suited": true,
+            "ev": 0.26623600000000003,
+            "playable": true,
+            "wins": 623182,
+            "draws": 19872,
+            "loses": 356946,
+            "win_ratio": 0.623182,
+            "draw_ratio": 0.019872,
+            "lose_ratio": 0.356946
+        },
+        "KcQd": {
+            "hero_cards": [
+                "Kc",
+                "Qd"
+            ],
+            "suited": false,
+            "ev": 0.229346,
+            "playable": true,
+            "wins": 604360,
+            "draws": 20626,
+            "loses": 375014,
+            "win_ratio": 0.60436,
+            "draw_ratio": 0.020626,
+            "lose_ratio": 0.375014
+        },
+        "KcJc": {
+            "hero_cards": [
+                "Kc",
+                "Jc"
+            ],
+            "suited": true,
+            "ev": 0.24946600000000002,
+            "playable": true,
+            "wins": 613747,
+            "draws": 21972,
+            "loses": 364281,
+            "win_ratio": 0.613747,
+            "draw_ratio": 0.021972,
+            "lose_ratio": 0.364281
+        },
+        "KcJd": {
+            "hero_cards": [
+                "Kc",
+                "Jd"
+            ],
+            "suited": false,
+            "ev": 0.211017,
+            "playable": true,
+            "wins": 594329,
+            "draws": 22359,
+            "loses": 383312,
+            "win_ratio": 0.594329,
+            "draw_ratio": 0.022359,
+            "lose_ratio": 0.383312
+        },
+        "KcTc": {
+            "hero_cards": [
+                "Kc",
+                "Tc"
+            ],
+            "suited": true,
+            "ev": 0.236433,
+            "playable": true,
+            "wins": 606232,
+            "draws": 23969,
+            "loses": 369799,
+            "win_ratio": 0.606232,
+            "draw_ratio": 0.023969,
+            "lose_ratio": 0.369799
+        },
+        "KcTd": {
+            "hero_cards": [
+                "Kc",
+                "Td"
+            ],
+            "suited": false,
+            "ev": 0.19264000000000003,
+            "playable": true,
+            "wins": 583886,
+            "draws": 24868,
+            "loses": 391246,
+            "win_ratio": 0.583886,
+            "draw_ratio": 0.024868,
+            "lose_ratio": 0.391246
+        },
+        "Kc9c": {
+            "hero_cards": [
+                "Kc",
+                "9c"
+            ],
+            "suited": true,
+            "ev": 0.20060500000000003,
+            "playable": true,
+            "wins": 586725,
+            "draws": 27155,
+            "loses": 386120,
+            "win_ratio": 0.586725,
+            "draw_ratio": 0.027155,
+            "lose_ratio": 0.38612
+        },
+        "Kc9d": {
+            "hero_cards": [
+                "Kc",
+                "9d"
+            ],
+            "suited": false,
+            "ev": 0.155903,
+            "playable": true,
+            "wins": 563859,
+            "draws": 28185,
+            "loses": 407956,
+            "win_ratio": 0.563859,
+            "draw_ratio": 0.028185,
+            "lose_ratio": 0.407956
+        },
+        "Kc8c": {
+            "hero_cards": [
+                "Kc",
+                "8c"
+            ],
+            "suited": true,
+            "ev": 0.16771600000000003,
+            "playable": true,
+            "wins": 568656,
+            "draws": 30404,
+            "loses": 400940,
+            "win_ratio": 0.568656,
+            "draw_ratio": 0.030404,
+            "lose_ratio": 0.40094
+        },
+        "Kc8d": {
+            "hero_cards": [
+                "Kc",
+                "8d"
+            ],
+            "suited": false,
+            "ev": 0.11968399999999996,
+            "playable": true,
+            "wins": 544029,
+            "draws": 31626,
+            "loses": 424345,
+            "win_ratio": 0.544029,
+            "draw_ratio": 0.031626,
+            "lose_ratio": 0.424345
+        },
+        "Kc7c": {
+            "hero_cards": [
+                "Kc",
+                "7c"
+            ],
+            "suited": true,
+            "ev": 0.15031099999999997,
+            "playable": true,
+            "wins": 558306,
+            "draws": 33699,
+            "loses": 407995,
+            "win_ratio": 0.558306,
+            "draw_ratio": 0.033699,
+            "lose_ratio": 0.407995
+        },
+        "Kc7d": {
+            "hero_cards": [
+                "Kc",
+                "7d"
+            ],
+            "suited": false,
+            "ev": 0.10317100000000001,
+            "playable": true,
+            "wins": 534134,
+            "draws": 34903,
+            "loses": 430963,
+            "win_ratio": 0.534134,
+            "draw_ratio": 0.034903,
+            "lose_ratio": 0.430963
+        },
+        "Kc6c": {
+            "hero_cards": [
+                "Kc",
+                "6c"
+            ],
+            "suited": true,
+            "ev": 0.13303699999999996,
+            "playable": true,
+            "wins": 548164,
+            "draws": 36709,
+            "loses": 415127,
+            "win_ratio": 0.548164,
+            "draw_ratio": 0.036709,
+            "lose_ratio": 0.415127
+        },
+        "Kc6d": {
+            "hero_cards": [
+                "Kc",
+                "6d"
+            ],
+            "suited": false,
+            "ev": 0.08342700000000003,
+            "playable": true,
+            "wins": 522530,
+            "draws": 38367,
+            "loses": 439103,
+            "win_ratio": 0.52253,
+            "draw_ratio": 0.038367,
+            "lose_ratio": 0.439103
+        },
+        "Kc5c": {
+            "hero_cards": [
+                "Kc",
+                "5c"
+            ],
+            "suited": true,
+            "ev": 0.11573,
+            "playable": true,
+            "wins": 538330,
+            "draws": 39070,
+            "loses": 422600,
+            "win_ratio": 0.53833,
+            "draw_ratio": 0.03907,
+            "lose_ratio": 0.4226
+        },
+        "Kc5d": {
+            "hero_cards": [
+                "Kc",
+                "5d"
+            ],
+            "suited": false,
+            "ev": 0.06498399999999999,
+            "playable": true,
+            "wins": 511898,
+            "draws": 41188,
+            "loses": 446914,
+            "win_ratio": 0.511898,
+            "draw_ratio": 0.041188,
+            "lose_ratio": 0.446914
+        },
+        "Kc4c": {
+            "hero_cards": [
+                "Kc",
+                "4c"
+            ],
+            "suited": true,
+            "ev": 0.09906199999999998,
+            "playable": true,
+            "wins": 529605,
+            "draws": 39852,
+            "loses": 430543,
+            "win_ratio": 0.529605,
+            "draw_ratio": 0.039852,
+            "lose_ratio": 0.430543
+        },
+        "Kc4d": {
+            "hero_cards": [
+                "Kc",
+                "4d"
+            ],
+            "suited": false,
+            "ev": 0.04658399999999996,
+            "playable": true,
+            "wins": 502489,
+            "draws": 41606,
+            "loses": 455905,
+            "win_ratio": 0.502489,
+            "draw_ratio": 0.041606,
+            "lose_ratio": 0.455905
+        },
+        "Kc3c": {
+            "hero_cards": [
+                "Kc",
+                "3c"
+            ],
+            "suited": true,
+            "ev": 0.08141099999999996,
+            "playable": true,
+            "wins": 520847,
+            "draws": 39717,
+            "loses": 439436,
+            "win_ratio": 0.520847,
+            "draw_ratio": 0.039717,
+            "lose_ratio": 0.439436
+        },
+        "Kc3d": {
+            "hero_cards": [
+                "Kc",
+                "3d"
+            ],
+            "suited": false,
+            "ev": 0.02768100000000001,
+            "playable": true,
+            "wins": 492923,
+            "draws": 41835,
+            "loses": 465242,
+            "win_ratio": 0.492923,
+            "draw_ratio": 0.041835,
+            "lose_ratio": 0.465242
+        },
+        "Kc2c": {
+            "hero_cards": [
+                "Kc",
+                "2c"
+            ],
+            "suited": true,
+            "ev": 0.062497000000000025,
+            "playable": true,
+            "wins": 511676,
+            "draws": 39145,
+            "loses": 449179,
+            "win_ratio": 0.511676,
+            "draw_ratio": 0.039145,
+            "lose_ratio": 0.449179
+        },
+        "Kc2d": {
+            "hero_cards": [
+                "Kc",
+                "2d"
+            ],
+            "suited": false,
+            "ev": 0.009603999999999946,
+            "playable": true,
+            "wins": 483932,
+            "draws": 41740,
+            "loses": 474328,
+            "win_ratio": 0.483932,
+            "draw_ratio": 0.04174,
+            "lose_ratio": 0.474328
+        },
+        "QcQd": {
+            "hero_cards": [
+                "Qc",
+                "Qd"
+            ],
+            "suited": false,
+            "ev": 0.599013,
+            "playable": true,
+            "wins": 796592,
+            "draws": 5829,
+            "loses": 197579,
+            "win_ratio": 0.796592,
+            "draw_ratio": 0.005829,
+            "lose_ratio": 0.197579
+        },
+        "QcJc": {
+            "hero_cards": [
+                "Qc",
+                "Jc"
+            ],
+            "suited": true,
+            "ev": 0.20668100000000006,
+            "playable": true,
+            "wins": 591404,
+            "draws": 23873,
+            "loses": 384723,
+            "win_ratio": 0.591404,
+            "draw_ratio": 0.023873,
+            "lose_ratio": 0.384723
+        },
+        "QcJd": {
+            "hero_cards": [
+                "Qc",
+                "Jd"
+            ],
+            "suited": false,
+            "ev": 0.16300000000000003,
+            "playable": true,
+            "wins": 569234,
+            "draws": 24532,
+            "loses": 406234,
+            "win_ratio": 0.569234,
+            "draw_ratio": 0.024532,
+            "lose_ratio": 0.406234
+        },
+        "QcTc": {
+            "hero_cards": [
+                "Qc",
+                "Tc"
+            ],
+            "suited": true,
+            "ev": 0.189079,
+            "playable": true,
+            "wins": 581519,
+            "draws": 26041,
+            "loses": 392440,
+            "win_ratio": 0.581519,
+            "draw_ratio": 0.026041,
+            "lose_ratio": 0.39244
+        },
+        "QcTd": {
+            "hero_cards": [
+                "Qc",
+                "Td"
+            ],
+            "suited": false,
+            "ev": 0.145949,
+            "playable": true,
+            "wins": 559740,
+            "draws": 26469,
+            "loses": 413791,
+            "win_ratio": 0.55974,
+            "draw_ratio": 0.026469,
+            "lose_ratio": 0.413791
+        },
+        "Qc9c": {
+            "hero_cards": [
+                "Qc",
+                "9c"
+            ],
+            "suited": true,
+            "ev": 0.153055,
+            "playable": true,
+            "wins": 562342,
+            "draws": 28371,
+            "loses": 409287,
+            "win_ratio": 0.562342,
+            "draw_ratio": 0.028371,
+            "lose_ratio": 0.409287
+        },
+        "Qc9d": {
+            "hero_cards": [
+                "Qc",
+                "9d"
+            ],
+            "suited": false,
+            "ev": 0.107954,
+            "playable": true,
+            "wins": 538967,
+            "draws": 30020,
+            "loses": 431013,
+            "win_ratio": 0.538967,
+            "draw_ratio": 0.03002,
+            "lose_ratio": 0.431013
+        },
+        "Qc8c": {
+            "hero_cards": [
+                "Qc",
+                "8c"
+            ],
+            "suited": true,
+            "ev": 0.12023699999999993,
+            "playable": true,
+            "wins": 544078,
+            "draws": 32081,
+            "loses": 423841,
+            "win_ratio": 0.544078,
+            "draw_ratio": 0.032081,
+            "lose_ratio": 0.423841
+        },
+        "Qc8d": {
+            "hero_cards": [
+                "Qc",
+                "8d"
+            ],
+            "suited": false,
+            "ev": 0.071654,
+            "playable": true,
+            "wins": 519080,
+            "draws": 33494,
+            "loses": 447426,
+            "win_ratio": 0.51908,
+            "draw_ratio": 0.033494,
+            "lose_ratio": 0.447426
+        },
+        "Qc7c": {
+            "hero_cards": [
+                "Qc",
+                "7c"
+            ],
+            "suited": true,
+            "ev": 0.08663599999999999,
+            "playable": true,
+            "wins": 525469,
+            "draws": 35698,
+            "loses": 438833,
+            "win_ratio": 0.525469,
+            "draw_ratio": 0.035698,
+            "lose_ratio": 0.438833
+        },
+        "Qc7d": {
+            "hero_cards": [
+                "Qc",
+                "7d"
+            ],
+            "suited": false,
+            "ev": 0.034997999999999974,
+            "playable": true,
+            "wins": 498903,
+            "draws": 37192,
+            "loses": 463905,
+            "win_ratio": 0.498903,
+            "draw_ratio": 0.037192,
+            "lose_ratio": 0.463905
+        },
+        "Qc6c": {
+            "hero_cards": [
+                "Qc",
+                "6c"
+            ],
+            "suited": true,
+            "ev": 0.07188499999999998,
+            "playable": true,
+            "wins": 516624,
+            "draws": 38637,
+            "loses": 444739,
+            "win_ratio": 0.516624,
+            "draw_ratio": 0.038637,
+            "lose_ratio": 0.444739
+        },
+        "Qc6d": {
+            "hero_cards": [
+                "Qc",
+                "6d"
+            ],
+            "suited": false,
+            "ev": 0.02095600000000003,
+            "playable": true,
+            "wins": 490171,
+            "draws": 40614,
+            "loses": 469215,
+            "win_ratio": 0.490171,
+            "draw_ratio": 0.040614,
+            "lose_ratio": 0.469215
+        },
+        "Qc5c": {
+            "hero_cards": [
+                "Qc",
+                "5c"
+            ],
+            "suited": true,
+            "ev": 0.05370700000000006,
+            "playable": true,
+            "wins": 506264,
+            "draws": 41179,
+            "loses": 452557,
+            "win_ratio": 0.506264,
+            "draw_ratio": 0.041179,
+            "lose_ratio": 0.452557
+        },
+        "Qc5d": {
+            "hero_cards": [
+                "Qc",
+                "5d"
+            ],
+            "suited": false,
+            "ev": 0.002703000000000011,
+            "playable": true,
+            "wins": 479650,
+            "draws": 43403,
+            "loses": 476947,
+            "win_ratio": 0.47965,
+            "draw_ratio": 0.043403,
+            "lose_ratio": 0.476947
+        },
+        "Qc4c": {
+            "hero_cards": [
+                "Qc",
+                "4c"
+            ],
+            "suited": true,
+            "ev": 0.03814000000000001,
+            "playable": true,
+            "wins": 498093,
+            "draws": 41954,
+            "loses": 459953,
+            "win_ratio": 0.498093,
+            "draw_ratio": 0.041954,
+            "lose_ratio": 0.459953
+        },
+        "Qc4d": {
+            "hero_cards": [
+                "Qc",
+                "4d"
+            ],
+            "suited": false,
+            "ev": -0.017386000000000013,
+            "playable": false,
+            "wins": 469545,
+            "draws": 43524,
+            "loses": 486931,
+            "win_ratio": 0.469545,
+            "draw_ratio": 0.043524,
+            "lose_ratio": 0.486931
+        },
+        "Qc3c": {
+            "hero_cards": [
+                "Qc",
+                "3c"
+            ],
+            "suited": true,
+            "ev": 0.021444999999999992,
+            "playable": true,
+            "wins": 490006,
+            "draws": 41433,
+            "loses": 468561,
+            "win_ratio": 0.490006,
+            "draw_ratio": 0.041433,
+            "lose_ratio": 0.468561
+        },
+        "Qc3d": {
+            "hero_cards": [
+                "Qc",
+                "3d"
+            ],
+            "suited": false,
+            "ev": -0.03652899999999998,
+            "playable": false,
+            "wins": 459814,
+            "draws": 43843,
+            "loses": 496343,
+            "win_ratio": 0.459814,
+            "draw_ratio": 0.043843,
+            "lose_ratio": 0.496343
+        },
+        "Qc2c": {
+            "hero_cards": [
+                "Qc",
+                "2c"
+            ],
+            "suited": true,
+            "ev": 0.0014190000000000036,
+            "playable": true,
+            "wins": 480045,
+            "draws": 41329,
+            "loses": 478626,
+            "win_ratio": 0.480045,
+            "draw_ratio": 0.041329,
+            "lose_ratio": 0.478626
+        },
+        "Qc2d": {
+            "hero_cards": [
+                "Qc",
+                "2d"
+            ],
+            "suited": false,
+            "ev": -0.05497599999999997,
+            "playable": false,
+            "wins": 450567,
+            "draws": 43890,
+            "loses": 505543,
+            "win_ratio": 0.450567,
+            "draw_ratio": 0.04389,
+            "lose_ratio": 0.505543
+        },
+        "JcJd": {
+            "hero_cards": [
+                "Jc",
+                "Jd"
+            ],
+            "suited": false,
+            "ev": 0.54849,
+            "playable": true,
+            "wins": 771046,
+            "draws": 6398,
+            "loses": 222556,
+            "win_ratio": 0.771046,
+            "draw_ratio": 0.006398,
+            "lose_ratio": 0.222556
+        },
+        "JcTc": {
+            "hero_cards": [
+                "Jc",
+                "Tc"
+            ],
+            "suited": true,
+            "ev": 0.150621,
+            "playable": true,
+            "wins": 561570,
+            "draws": 27481,
+            "loses": 410949,
+            "win_ratio": 0.56157,
+            "draw_ratio": 0.027481,
+            "lose_ratio": 0.410949
+        },
+        "JcTd": {
+            "hero_cards": [
+                "Jc",
+                "Td"
+            ],
+            "suited": false,
+            "ev": 0.10456000000000004,
+            "playable": true,
+            "wins": 538097,
+            "draws": 28366,
+            "loses": 433537,
+            "win_ratio": 0.538097,
+            "draw_ratio": 0.028366,
+            "lose_ratio": 0.433537
+        },
+        "Jc9c": {
+            "hero_cards": [
+                "Jc",
+                "9c"
+            ],
+            "suited": true,
+            "ev": 0.11315399999999998,
+            "playable": true,
+            "wins": 541157,
+            "draws": 30840,
+            "loses": 428003,
+            "win_ratio": 0.541157,
+            "draw_ratio": 0.03084,
+            "lose_ratio": 0.428003
+        },
+        "Jc9d": {
+            "hero_cards": [
+                "Jc",
+                "9d"
+            ],
+            "suited": false,
+            "ev": 0.063861,
+            "playable": true,
+            "wins": 515768,
+            "draws": 32325,
+            "loses": 451907,
+            "win_ratio": 0.515768,
+            "draw_ratio": 0.032325,
+            "lose_ratio": 0.451907
+        },
+        "Jc8c": {
+            "hero_cards": [
+                "Jc",
+                "8c"
+            ],
+            "suited": true,
+            "ev": 0.08180199999999993,
+            "playable": true,
+            "wins": 523847,
+            "draws": 34108,
+            "loses": 442045,
+            "win_ratio": 0.523847,
+            "draw_ratio": 0.034108,
+            "lose_ratio": 0.442045
+        },
+        "Jc8d": {
+            "hero_cards": [
+                "Jc",
+                "8d"
+            ],
+            "suited": false,
+            "ev": 0.029649000000000036,
+            "playable": true,
+            "wins": 497070,
+            "draws": 35509,
+            "loses": 467421,
+            "win_ratio": 0.49707,
+            "draw_ratio": 0.035509,
+            "lose_ratio": 0.467421
+        },
+        "Jc7c": {
+            "hero_cards": [
+                "Jc",
+                "7c"
+            ],
+            "suited": true,
+            "ev": 0.043389999999999984,
+            "playable": true,
+            "wins": 502849,
+            "draws": 37692,
+            "loses": 459459,
+            "win_ratio": 0.502849,
+            "draw_ratio": 0.037692,
+            "lose_ratio": 0.459459
+        },
+        "Jc7d": {
+            "hero_cards": [
+                "Jc",
+                "7d"
+            ],
+            "suited": false,
+            "ev": -0.006667000000000034,
+            "playable": false,
+            "wins": 477174,
+            "draws": 38985,
+            "loses": 483841,
+            "win_ratio": 0.477174,
+            "draw_ratio": 0.038985,
+            "lose_ratio": 0.483841
+        },
+        "Jc6c": {
+            "hero_cards": [
+                "Jc",
+                "6c"
+            ],
+            "suited": true,
+            "ev": 0.013527999999999984,
+            "playable": true,
+            "wins": 486537,
+            "draws": 40454,
+            "loses": 473009,
+            "win_ratio": 0.486537,
+            "draw_ratio": 0.040454,
+            "lose_ratio": 0.473009
+        },
+        "Jc6d": {
+            "hero_cards": [
+                "Jc",
+                "6d"
+            ],
+            "suited": false,
+            "ev": -0.04349200000000003,
+            "playable": false,
+            "wins": 456983,
+            "draws": 42542,
+            "loses": 500475,
+            "win_ratio": 0.456983,
+            "draw_ratio": 0.042542,
+            "lose_ratio": 0.500475
+        },
+        "Jc5c": {
+            "hero_cards": [
+                "Jc",
+                "5c"
+            ],
+            "suited": true,
+            "ev": -0.0015000000000000013,
+            "playable": false,
+            "wins": 477483,
+            "draws": 43534,
+            "loses": 478983,
+            "win_ratio": 0.477483,
+            "draw_ratio": 0.043534,
+            "lose_ratio": 0.478983
+        },
+        "Jc5d": {
+            "hero_cards": [
+                "Jc",
+                "5d"
+            ],
+            "suited": false,
+            "ev": -0.05692599999999998,
+            "playable": false,
+            "wins": 448749,
+            "draws": 45576,
+            "loses": 505675,
+            "win_ratio": 0.448749,
+            "draw_ratio": 0.045576,
+            "lose_ratio": 0.505675
+        },
+        "Jc4c": {
+            "hero_cards": [
+                "Jc",
+                "4c"
+            ],
+            "suited": true,
+            "ev": -0.01675399999999999,
+            "playable": false,
+            "wins": 469859,
+            "draws": 43528,
+            "loses": 486613,
+            "win_ratio": 0.469859,
+            "draw_ratio": 0.043528,
+            "lose_ratio": 0.486613
+        },
+        "Jc4d": {
+            "hero_cards": [
+                "Jc",
+                "4d"
+            ],
+            "suited": false,
+            "ev": -0.07679999999999992,
+            "playable": false,
+            "wins": 438665,
+            "draws": 45870,
+            "loses": 515465,
+            "win_ratio": 0.438665,
+            "draw_ratio": 0.04587,
+            "lose_ratio": 0.515465
+        },
+        "Jc3c": {
+            "hero_cards": [
+                "Jc",
+                "3c"
+            ],
+            "suited": true,
+            "ev": -0.035856,
+            "playable": false,
+            "wins": 460332,
+            "draws": 43480,
+            "loses": 496188,
+            "win_ratio": 0.460332,
+            "draw_ratio": 0.04348,
+            "lose_ratio": 0.496188
+        },
+        "Jc3d": {
+            "hero_cards": [
+                "Jc",
+                "3d"
+            ],
+            "suited": false,
+            "ev": -0.09566200000000002,
+            "playable": false,
+            "wins": 429084,
+            "draws": 46170,
+            "loses": 524746,
+            "win_ratio": 0.429084,
+            "draw_ratio": 0.04617,
+            "lose_ratio": 0.524746
+        },
+        "Jc2c": {
+            "hero_cards": [
+                "Jc",
+                "2c"
+            ],
+            "suited": true,
+            "ev": -0.05368200000000006,
+            "playable": false,
+            "wins": 451250,
+            "draws": 43818,
+            "loses": 504932,
+            "win_ratio": 0.45125,
+            "draw_ratio": 0.043818,
+            "lose_ratio": 0.504932
+        },
+        "Jc2d": {
+            "hero_cards": [
+                "Jc",
+                "2d"
+            ],
+            "suited": false,
+            "ev": -0.11152099999999998,
+            "playable": false,
+            "wins": 421393,
+            "draws": 45693,
+            "loses": 532914,
+            "win_ratio": 0.421393,
+            "draw_ratio": 0.045693,
+            "lose_ratio": 0.532914
+        },
+        "TcTd": {
+            "hero_cards": [
+                "Tc",
+                "Td"
+            ],
+            "suited": false,
+            "ev": 0.501183,
+            "playable": true,
+            "wins": 747052,
+            "draws": 7079,
+            "loses": 245869,
+            "win_ratio": 0.747052,
+            "draw_ratio": 0.007079,
+            "lose_ratio": 0.245869
+        },
+        "Tc9c": {
+            "hero_cards": [
+                "Tc",
+                "9c"
+            ],
+            "suited": true,
+            "ev": 0.08174799999999999,
+            "playable": true,
+            "wins": 524358,
+            "draws": 33032,
+            "loses": 442610,
+            "win_ratio": 0.524358,
+            "draw_ratio": 0.033032,
+            "lose_ratio": 0.44261
+        },
+        "Tc9d": {
+            "hero_cards": [
+                "Tc",
+                "9d"
+            ],
+            "suited": false,
+            "ev": 0.030168000000000028,
+            "playable": true,
+            "wins": 498024,
+            "draws": 34120,
+            "loses": 467856,
+            "win_ratio": 0.498024,
+            "draw_ratio": 0.03412,
+            "lose_ratio": 0.467856
+        },
+        "Tc8c": {
+            "hero_cards": [
+                "Tc",
+                "8c"
+            ],
+            "suited": true,
+            "ev": 0.04869800000000002,
+            "playable": true,
+            "wins": 506081,
+            "draws": 36536,
+            "loses": 457383,
+            "win_ratio": 0.506081,
+            "draw_ratio": 0.036536,
+            "lose_ratio": 0.457383
+        },
+        "Tc8d": {
+            "hero_cards": [
+                "Tc",
+                "8d"
+            ],
+            "suited": false,
+            "ev": -0.0062349999999999905,
+            "playable": false,
+            "wins": 477914,
+            "draws": 37937,
+            "loses": 484149,
+            "win_ratio": 0.477914,
+            "draw_ratio": 0.037937,
+            "lose_ratio": 0.484149
+        },
+        "Tc7c": {
+            "hero_cards": [
+                "Tc",
+                "7c"
+            ],
+            "suited": true,
+            "ev": 0.013034999999999963,
+            "playable": true,
+            "wins": 486656,
+            "draws": 39723,
+            "loses": 473621,
+            "win_ratio": 0.486656,
+            "draw_ratio": 0.039723,
+            "lose_ratio": 0.473621
+        },
+        "Tc7d": {
+            "hero_cards": [
+                "Tc",
+                "7d"
+            ],
+            "suited": false,
+            "ev": -0.04090100000000002,
+            "playable": false,
+            "wins": 458887,
+            "draws": 41325,
+            "loses": 499788,
+            "win_ratio": 0.458887,
+            "draw_ratio": 0.041325,
+            "lose_ratio": 0.499788
+        },
+        "Tc6c": {
+            "hero_cards": [
+                "Tc",
+                "6c"
+            ],
+            "suited": true,
+            "ev": -0.021031000000000022,
+            "playable": false,
+            "wins": 468066,
+            "draws": 42837,
+            "loses": 489097,
+            "win_ratio": 0.468066,
+            "draw_ratio": 0.042837,
+            "lose_ratio": 0.489097
+        },
+        "Tc6d": {
+            "hero_cards": [
+                "Tc",
+                "6d"
+            ],
+            "suited": false,
+            "ev": -0.07765499999999997,
+            "playable": false,
+            "wins": 438799,
+            "draws": 44747,
+            "loses": 516454,
+            "win_ratio": 0.438799,
+            "draw_ratio": 0.044747,
+            "lose_ratio": 0.516454
+        },
+        "Tc5c": {
+            "hero_cards": [
+                "Tc",
+                "5c"
+            ],
+            "suited": true,
+            "ev": -0.05521799999999999,
+            "playable": false,
+            "wins": 449616,
+            "draws": 45550,
+            "loses": 504834,
+            "win_ratio": 0.449616,
+            "draw_ratio": 0.04555,
+            "lose_ratio": 0.504834
+        },
+        "Tc5d": {
+            "hero_cards": [
+                "Tc",
+                "5d"
+            ],
+            "suited": false,
+            "ev": -0.11337900000000006,
+            "playable": false,
+            "wins": 419436,
+            "draws": 47749,
+            "loses": 532815,
+            "win_ratio": 0.419436,
+            "draw_ratio": 0.047749,
+            "lose_ratio": 0.532815
+        },
+        "Tc4c": {
+            "hero_cards": [
+                "Tc",
+                "4c"
+            ],
+            "suited": true,
+            "ev": -0.06964599999999993,
+            "playable": false,
+            "wins": 441931,
+            "draws": 46492,
+            "loses": 511577,
+            "win_ratio": 0.441931,
+            "draw_ratio": 0.046492,
+            "lose_ratio": 0.511577
+        },
+        "Tc4d": {
+            "hero_cards": [
+                "Tc",
+                "4d"
+            ],
+            "suited": false,
+            "ev": -0.13177999999999995,
+            "playable": false,
+            "wins": 409495,
+            "draws": 49230,
+            "loses": 541275,
+            "win_ratio": 0.409495,
+            "draw_ratio": 0.04923,
+            "lose_ratio": 0.541275
+        },
+        "Tc3c": {
+            "hero_cards": [
+                "Tc",
+                "3c"
+            ],
+            "suited": true,
+            "ev": -0.08621500000000004,
+            "playable": false,
+            "wins": 433716,
+            "draws": 46353,
+            "loses": 519931,
+            "win_ratio": 0.433716,
+            "draw_ratio": 0.046353,
+            "lose_ratio": 0.519931
+        },
+        "Tc3d": {
+            "hero_cards": [
+                "Tc",
+                "3d"
+            ],
+            "suited": false,
+            "ev": -0.149399,
+            "playable": false,
+            "wins": 400950,
+            "draws": 48701,
+            "loses": 550349,
+            "win_ratio": 0.40095,
+            "draw_ratio": 0.048701,
+            "lose_ratio": 0.550349
+        },
+        "Tc2c": {
+            "hero_cards": [
+                "Tc",
+                "2c"
+            ],
+            "suited": true,
+            "ev": -0.10216699999999995,
+            "playable": false,
+            "wins": 425947,
+            "draws": 45939,
+            "loses": 528114,
+            "win_ratio": 0.425947,
+            "draw_ratio": 0.045939,
+            "lose_ratio": 0.528114
+        },
+        "Tc2d": {
+            "hero_cards": [
+                "Tc",
+                "2d"
+            ],
+            "suited": false,
+            "ev": -0.16599099999999994,
+            "playable": false,
+            "wins": 392774,
+            "draws": 48461,
+            "loses": 558765,
+            "win_ratio": 0.392774,
+            "draw_ratio": 0.048461,
+            "lose_ratio": 0.558765
+        },
+        "9c9d": {
+            "hero_cards": [
+                "9c",
+                "9d"
+            ],
+            "suited": false,
+            "ev": 0.44083599999999995,
+            "playable": true,
+            "wins": 716490,
+            "draws": 7856,
+            "loses": 275654,
+            "win_ratio": 0.71649,
+            "draw_ratio": 0.007856,
+            "lose_ratio": 0.275654
+        },
+        "9c8c": {
+            "hero_cards": [
+                "9c",
+                "8c"
+            ],
+            "suited": true,
+            "ev": 0.014780999999999989,
+            "playable": true,
+            "wins": 487852,
+            "draws": 39077,
+            "loses": 473071,
+            "win_ratio": 0.487852,
+            "draw_ratio": 0.039077,
+            "lose_ratio": 0.473071
+        },
+        "9c8d": {
+            "hero_cards": [
+                "9c",
+                "8d"
+            ],
+            "suited": false,
+            "ev": -0.039185000000000025,
+            "playable": false,
+            "wins": 460188,
+            "draws": 40439,
+            "loses": 499373,
+            "win_ratio": 0.460188,
+            "draw_ratio": 0.040439,
+            "lose_ratio": 0.499373
+        },
+        "9c7c": {
+            "hero_cards": [
+                "9c",
+                "7c"
+            ],
+            "suited": true,
+            "ev": -0.01769900000000002,
+            "playable": false,
+            "wins": 469725,
+            "draws": 42851,
+            "loses": 487424,
+            "win_ratio": 0.469725,
+            "draw_ratio": 0.042851,
+            "lose_ratio": 0.487424
+        },
+        "9c7d": {
+            "hero_cards": [
+                "9c",
+                "7d"
+            ],
+            "suited": false,
+            "ev": -0.07265300000000002,
+            "playable": false,
+            "wins": 441471,
+            "draws": 44405,
+            "loses": 514124,
+            "win_ratio": 0.441471,
+            "draw_ratio": 0.044405,
+            "lose_ratio": 0.514124
+        },
+        "9c6c": {
+            "hero_cards": [
+                "9c",
+                "6c"
+            ],
+            "suited": true,
+            "ev": -0.05215299999999995,
+            "playable": false,
+            "wins": 451309,
+            "draws": 45229,
+            "loses": 503462,
+            "win_ratio": 0.451309,
+            "draw_ratio": 0.045229,
+            "lose_ratio": 0.503462
+        },
+        "9c6d": {
+            "hero_cards": [
+                "9c",
+                "6d"
+            ],
+            "suited": false,
+            "ev": -0.11037599999999997,
+            "playable": false,
+            "wins": 420873,
+            "draws": 47878,
+            "loses": 531249,
+            "win_ratio": 0.420873,
+            "draw_ratio": 0.047878,
+            "lose_ratio": 0.531249
+        },
+        "9c5c": {
+            "hero_cards": [
+                "9c",
+                "5c"
+            ],
+            "suited": true,
+            "ev": -0.08507000000000003,
+            "playable": false,
+            "wins": 433244,
+            "draws": 48442,
+            "loses": 518314,
+            "win_ratio": 0.433244,
+            "draw_ratio": 0.048442,
+            "lose_ratio": 0.518314
+        },
+        "9c5d": {
+            "hero_cards": [
+                "9c",
+                "5d"
+            ],
+            "suited": false,
+            "ev": -0.14702099999999996,
+            "playable": false,
+            "wins": 401046,
+            "draws": 50887,
+            "loses": 548067,
+            "win_ratio": 0.401046,
+            "draw_ratio": 0.050887,
+            "lose_ratio": 0.548067
+        },
+        "9c4c": {
+            "hero_cards": [
+                "9c",
+                "4c"
+            ],
+            "suited": true,
+            "ev": -0.12207499999999999,
+            "playable": false,
+            "wins": 414364,
+            "draws": 49197,
+            "loses": 536439,
+            "win_ratio": 0.414364,
+            "draw_ratio": 0.049197,
+            "lose_ratio": 0.536439
+        },
+        "9c4d": {
+            "hero_cards": [
+                "9c",
+                "4d"
+            ],
+            "suited": false,
+            "ev": -0.18559600000000004,
+            "playable": false,
+            "wins": 381299,
+            "draws": 51806,
+            "loses": 566895,
+            "win_ratio": 0.381299,
+            "draw_ratio": 0.051806,
+            "lose_ratio": 0.566895
+        },
+        "9c3c": {
+            "hero_cards": [
+                "9c",
+                "3c"
+            ],
+            "suited": true,
+            "ev": -0.13526100000000002,
+            "playable": false,
+            "wins": 407854,
+            "draws": 49031,
+            "loses": 543115,
+            "win_ratio": 0.407854,
+            "draw_ratio": 0.049031,
+            "lose_ratio": 0.543115
+        },
+        "9c3d": {
+            "hero_cards": [
+                "9c",
+                "3d"
+            ],
+            "suited": false,
+            "ev": -0.20135500000000006,
+            "playable": false,
+            "wins": 373374,
+            "draws": 51897,
+            "loses": 574729,
+            "win_ratio": 0.373374,
+            "draw_ratio": 0.051897,
+            "lose_ratio": 0.574729
+        },
+        "9c2c": {
+            "hero_cards": [
+                "9c",
+                "2c"
+            ],
+            "suited": true,
+            "ev": -0.14998900000000004,
+            "playable": false,
+            "wins": 400517,
+            "draws": 48977,
+            "loses": 550506,
+            "win_ratio": 0.400517,
+            "draw_ratio": 0.048977,
+            "lose_ratio": 0.550506
+        },
+        "9c2d": {
+            "hero_cards": [
+                "9c",
+                "2d"
+            ],
+            "suited": false,
+            "ev": -0.21763000000000005,
+            "playable": false,
+            "wins": 365241,
+            "draws": 51888,
+            "loses": 582871,
+            "win_ratio": 0.365241,
+            "draw_ratio": 0.051888,
+            "lose_ratio": 0.582871
+        },
+        "8c8d": {
+            "hero_cards": [
+                "8c",
+                "8d"
+            ],
+            "suited": false,
+            "ev": 0.38521700000000003,
+            "playable": true,
+            "wins": 688149,
+            "draws": 8919,
+            "loses": 302932,
+            "win_ratio": 0.688149,
+            "draw_ratio": 0.008919,
+            "lose_ratio": 0.302932
+        },
+        "8c7c": {
+            "hero_cards": [
+                "8c",
+                "7c"
+            ],
+            "suited": true,
+            "ev": -0.04038400000000003,
+            "playable": false,
+            "wins": 457022,
+            "draws": 45572,
+            "loses": 497406,
+            "win_ratio": 0.457022,
+            "draw_ratio": 0.045572,
+            "lose_ratio": 0.497406
+        },
+        "8c7d": {
+            "hero_cards": [
+                "8c",
+                "7d"
+            ],
+            "suited": false,
+            "ev": -0.09888700000000006,
+            "playable": false,
+            "wins": 426982,
+            "draws": 47149,
+            "loses": 525869,
+            "win_ratio": 0.426982,
+            "draw_ratio": 0.047149,
+            "lose_ratio": 0.525869
+        },
+        "8c6c": {
+            "hero_cards": [
+                "8c",
+                "6c"
+            ],
+            "suited": true,
+            "ev": -0.07593599999999995,
+            "playable": false,
+            "wins": 437553,
+            "draws": 48958,
+            "loses": 513489,
+            "win_ratio": 0.437553,
+            "draw_ratio": 0.048958,
+            "lose_ratio": 0.513489
+        },
+        "8c6d": {
+            "hero_cards": [
+                "8c",
+                "6d"
+            ],
+            "suited": false,
+            "ev": -0.134475,
+            "playable": false,
+            "wins": 407301,
+            "draws": 50923,
+            "loses": 541776,
+            "win_ratio": 0.407301,
+            "draw_ratio": 0.050923,
+            "lose_ratio": 0.541776
+        },
+        "8c5c": {
+            "hero_cards": [
+                "8c",
+                "5c"
+            ],
+            "suited": true,
+            "ev": -0.10888900000000001,
+            "playable": false,
+            "wins": 419960,
+            "draws": 51191,
+            "loses": 528849,
+            "win_ratio": 0.41996,
+            "draw_ratio": 0.051191,
+            "lose_ratio": 0.528849
+        },
+        "8c5d": {
+            "hero_cards": [
+                "8c",
+                "5d"
+            ],
+            "suited": false,
+            "ev": -0.171342,
+            "playable": false,
+            "wins": 387402,
+            "draws": 53854,
+            "loses": 558744,
+            "win_ratio": 0.387402,
+            "draw_ratio": 0.053854,
+            "lose_ratio": 0.558744
+        },
+        "8c4c": {
+            "hero_cards": [
+                "8c",
+                "4c"
+            ],
+            "suited": true,
+            "ev": -0.14580699999999996,
+            "playable": false,
+            "wins": 400963,
+            "draws": 52267,
+            "loses": 546770,
+            "win_ratio": 0.400963,
+            "draw_ratio": 0.052267,
+            "lose_ratio": 0.54677
+        },
+        "8c4d": {
+            "hero_cards": [
+                "8c",
+                "4d"
+            ],
+            "suited": false,
+            "ev": -0.20960600000000001,
+            "playable": false,
+            "wins": 367639,
+            "draws": 55116,
+            "loses": 577245,
+            "win_ratio": 0.367639,
+            "draw_ratio": 0.055116,
+            "lose_ratio": 0.577245
+        },
+        "8c3c": {
+            "hero_cards": [
+                "8c",
+                "3c"
+            ],
+            "suited": true,
+            "ev": -0.18212900000000004,
+            "playable": false,
+            "wins": 383025,
+            "draws": 51821,
+            "loses": 565154,
+            "win_ratio": 0.383025,
+            "draw_ratio": 0.051821,
+            "lose_ratio": 0.565154
+        },
+        "8c3d": {
+            "hero_cards": [
+                "8c",
+                "3d"
+            ],
+            "suited": false,
+            "ev": -0.25045100000000003,
+            "playable": false,
+            "wins": 347428,
+            "draws": 54693,
+            "loses": 597879,
+            "win_ratio": 0.347428,
+            "draw_ratio": 0.054693,
+            "lose_ratio": 0.597879
+        },
+        "8c2c": {
+            "hero_cards": [
+                "8c",
+                "2c"
+            ],
+            "suited": true,
+            "ev": -0.194031,
+            "playable": false,
+            "wins": 377221,
+            "draws": 51527,
+            "loses": 571252,
+            "win_ratio": 0.377221,
+            "draw_ratio": 0.051527,
+            "lose_ratio": 0.571252
+        },
+        "8c2d": {
+            "hero_cards": [
+                "8c",
+                "2d"
+            ],
+            "suited": false,
+            "ev": -0.263723,
+            "playable": false,
+            "wins": 340567,
+            "draws": 55143,
+            "loses": 604290,
+            "win_ratio": 0.340567,
+            "draw_ratio": 0.055143,
+            "lose_ratio": 0.60429
+        },
+        "7c7d": {
+            "hero_cards": [
+                "7c",
+                "7d"
+            ],
+            "suited": false,
+            "ev": 0.324642,
+            "playable": true,
+            "wins": 657284,
+            "draws": 10074,
+            "loses": 332642,
+            "win_ratio": 0.657284,
+            "draw_ratio": 0.010074,
+            "lose_ratio": 0.332642
+        },
+        "7c6c": {
+            "hero_cards": [
+                "7c",
+                "6c"
+            ],
+            "suited": true,
+            "ev": -0.09121299999999993,
+            "playable": false,
+            "wins": 429283,
+            "draws": 50221,
+            "loses": 520496,
+            "win_ratio": 0.429283,
+            "draw_ratio": 0.050221,
+            "lose_ratio": 0.520496
+        },
+        "7c6d": {
+            "hero_cards": [
+                "7c",
+                "6d"
+            ],
+            "suited": false,
+            "ev": -0.153534,
+            "playable": false,
+            "wins": 396542,
+            "draws": 53382,
+            "loses": 550076,
+            "win_ratio": 0.396542,
+            "draw_ratio": 0.053382,
+            "lose_ratio": 0.550076
+        },
+        "7c5c": {
+            "hero_cards": [
+                "7c",
+                "5c"
+            ],
+            "suited": true,
+            "ev": -0.12643700000000008,
+            "playable": false,
+            "wins": 409780,
+            "draws": 54003,
+            "loses": 536217,
+            "win_ratio": 0.40978,
+            "draw_ratio": 0.054003,
+            "lose_ratio": 0.536217
+        },
+        "7c5d": {
+            "hero_cards": [
+                "7c",
+                "5d"
+            ],
+            "suited": false,
+            "ev": -0.18918800000000002,
+            "playable": false,
+            "wins": 377123,
+            "draws": 56566,
+            "loses": 566311,
+            "win_ratio": 0.377123,
+            "draw_ratio": 0.056566,
+            "lose_ratio": 0.566311
+        },
+        "7c4c": {
+            "hero_cards": [
+                "7c",
+                "4c"
+            ],
+            "suited": true,
+            "ev": -0.16304599999999997,
+            "playable": false,
+            "wins": 391218,
+            "draws": 54518,
+            "loses": 554264,
+            "win_ratio": 0.391218,
+            "draw_ratio": 0.054518,
+            "lose_ratio": 0.554264
+        },
+        "7c4d": {
+            "hero_cards": [
+                "7c",
+                "4d"
+            ],
+            "suited": false,
+            "ev": -0.22854600000000003,
+            "playable": false,
+            "wins": 356776,
+            "draws": 57902,
+            "loses": 585322,
+            "win_ratio": 0.356776,
+            "draw_ratio": 0.057902,
+            "lose_ratio": 0.585322
+        },
+        "7c3c": {
+            "hero_cards": [
+                "7c",
+                "3c"
+            ],
+            "suited": true,
+            "ev": -0.20011799999999996,
+            "playable": false,
+            "wins": 372686,
+            "draws": 54510,
+            "loses": 572804,
+            "win_ratio": 0.372686,
+            "draw_ratio": 0.05451,
+            "lose_ratio": 0.572804
+        },
+        "7c3d": {
+            "hero_cards": [
+                "7c",
+                "3d"
+            ],
+            "suited": false,
+            "ev": -0.26664799999999994,
+            "playable": false,
+            "wins": 337567,
+            "draws": 58218,
+            "loses": 604215,
+            "win_ratio": 0.337567,
+            "draw_ratio": 0.058218,
+            "lose_ratio": 0.604215
+        },
+        "7c2c": {
+            "hero_cards": [
+                "7c",
+                "2c"
+            ],
+            "suited": true,
+            "ev": -0.23747399999999996,
+            "playable": false,
+            "wins": 354062,
+            "draws": 54402,
+            "loses": 591536,
+            "win_ratio": 0.354062,
+            "draw_ratio": 0.054402,
+            "lose_ratio": 0.591536
+        },
+        "7c2d": {
+            "hero_cards": [
+                "7c",
+                "2d"
+            ],
+            "suited": false,
+            "ev": -0.307365,
+            "playable": false,
+            "wins": 317561,
+            "draws": 57513,
+            "loses": 624926,
+            "win_ratio": 0.317561,
+            "draw_ratio": 0.057513,
+            "lose_ratio": 0.624926
+        },
+        "6c6d": {
+            "hero_cards": [
+                "6c",
+                "6d"
+            ],
+            "suited": false,
+            "ev": 0.26467000000000007,
+            "playable": true,
+            "wins": 626434,
+            "draws": 11802,
+            "loses": 361764,
+            "win_ratio": 0.626434,
+            "draw_ratio": 0.011802,
+            "lose_ratio": 0.361764
+        },
+        "6c5c": {
+            "hero_cards": [
+                "6c",
+                "5c"
+            ],
+            "suited": true,
+            "ev": -0.13680900000000001,
+            "playable": false,
+            "wins": 403823,
+            "draws": 55545,
+            "loses": 540632,
+            "win_ratio": 0.403823,
+            "draw_ratio": 0.055545,
+            "lose_ratio": 0.540632
+        },
+        "6c5d": {
+            "hero_cards": [
+                "6c",
+                "5d"
+            ],
+            "suited": false,
+            "ev": -0.20084699999999994,
+            "playable": false,
+            "wins": 370385,
+            "draws": 58383,
+            "loses": 571232,
+            "win_ratio": 0.370385,
+            "draw_ratio": 0.058383,
+            "lose_ratio": 0.571232
+        },
+        "6c4c": {
+            "hero_cards": [
+                "6c",
+                "4c"
+            ],
+            "suited": true,
+            "ev": -0.173427,
+            "playable": false,
+            "wins": 384837,
+            "draws": 56899,
+            "loses": 558264,
+            "win_ratio": 0.384837,
+            "draw_ratio": 0.056899,
+            "lose_ratio": 0.558264
+        },
+        "6c4d": {
+            "hero_cards": [
+                "6c",
+                "4d"
+            ],
+            "suited": false,
+            "ev": -0.240718,
+            "playable": false,
+            "wins": 349533,
+            "draws": 60216,
+            "loses": 590251,
+            "win_ratio": 0.349533,
+            "draw_ratio": 0.060216,
+            "lose_ratio": 0.590251
+        },
+        "6c3c": {
+            "hero_cards": [
+                "6c",
+                "3c"
+            ],
+            "suited": true,
+            "ev": -0.20861000000000002,
+            "playable": false,
+            "wins": 367080,
+            "draws": 57230,
+            "loses": 575690,
+            "win_ratio": 0.36708,
+            "draw_ratio": 0.05723,
+            "lose_ratio": 0.57569
+        },
+        "6c3d": {
+            "hero_cards": [
+                "6c",
+                "3d"
+            ],
+            "suited": false,
+            "ev": -0.27797900000000003,
+            "playable": false,
+            "wins": 330929,
+            "draws": 60163,
+            "loses": 608908,
+            "win_ratio": 0.330929,
+            "draw_ratio": 0.060163,
+            "lose_ratio": 0.608908
+        },
+        "6c2c": {
+            "hero_cards": [
+                "6c",
+                "2c"
+            ],
+            "suited": true,
+            "ev": -0.245628,
+            "playable": false,
+            "wins": 348648,
+            "draws": 57076,
+            "loses": 594276,
+            "win_ratio": 0.348648,
+            "draw_ratio": 0.057076,
+            "lose_ratio": 0.594276
+        },
+        "6c2d": {
+            "hero_cards": [
+                "6c",
+                "2d"
+            ],
+            "suited": false,
+            "ev": -0.31921,
+            "playable": false,
+            "wins": 310643,
+            "draws": 59504,
+            "loses": 629853,
+            "win_ratio": 0.310643,
+            "draw_ratio": 0.059504,
+            "lose_ratio": 0.629853
+        },
+        "5c5d": {
+            "hero_cards": [
+                "5c",
+                "5d"
+            ],
+            "suited": false,
+            "ev": 0.206208,
+            "playable": true,
+            "wins": 596222,
+            "draws": 13764,
+            "loses": 390014,
+            "win_ratio": 0.596222,
+            "draw_ratio": 0.013764,
+            "lose_ratio": 0.390014
+        },
+        "5c4c": {
+            "hero_cards": [
+                "5c",
+                "4c"
+            ],
+            "suited": true,
+            "ev": -0.17039799999999994,
+            "playable": false,
+            "wins": 385510,
+            "draws": 58582,
+            "loses": 555908,
+            "win_ratio": 0.38551,
+            "draw_ratio": 0.058582,
+            "lose_ratio": 0.555908
+        },
+        "5c4d": {
+            "hero_cards": [
+                "5c",
+                "4d"
+            ],
+            "suited": false,
+            "ev": -0.237622,
+            "playable": false,
+            "wins": 350449,
+            "draws": 61480,
+            "loses": 588071,
+            "win_ratio": 0.350449,
+            "draw_ratio": 0.06148,
+            "lose_ratio": 0.588071
+        },
+        "5c3c": {
+            "hero_cards": [
+                "5c",
+                "3c"
+            ],
+            "suited": true,
+            "ev": -0.20529400000000003,
+            "playable": false,
+            "wins": 368021,
+            "draws": 58664,
+            "loses": 573315,
+            "win_ratio": 0.368021,
+            "draw_ratio": 0.058664,
+            "lose_ratio": 0.573315
+        },
+        "5c3d": {
+            "hero_cards": [
+                "5c",
+                "3d"
+            ],
+            "suited": false,
+            "ev": -0.27264000000000005,
+            "playable": false,
+            "wins": 332710,
+            "draws": 61940,
+            "loses": 605350,
+            "win_ratio": 0.33271,
+            "draw_ratio": 0.06194,
+            "lose_ratio": 0.60535
+        },
+        "5c2c": {
+            "hero_cards": [
+                "5c",
+                "2c"
+            ],
+            "suited": true,
+            "ev": -0.24306499999999998,
+            "playable": false,
+            "wins": 349344,
+            "draws": 58247,
+            "loses": 592409,
+            "win_ratio": 0.349344,
+            "draw_ratio": 0.058247,
+            "lose_ratio": 0.592409
+        },
+        "5c2d": {
+            "hero_cards": [
+                "5c",
+                "2d"
+            ],
+            "suited": false,
+            "ev": -0.313768,
+            "playable": false,
+            "wins": 312247,
+            "draws": 61738,
+            "loses": 626015,
+            "win_ratio": 0.312247,
+            "draw_ratio": 0.061738,
+            "lose_ratio": 0.626015
+        },
+        "4c4d": {
+            "hero_cards": [
+                "4c",
+                "4d"
+            ],
+            "suited": false,
+            "ev": 0.141422,
+            "playable": true,
+            "wins": 562991,
+            "draws": 15440,
+            "loses": 421569,
+            "win_ratio": 0.562991,
+            "draw_ratio": 0.01544,
+            "lose_ratio": 0.421569
+        },
+        "4c3c": {
+            "hero_cards": [
+                "4c",
+                "3c"
+            ],
+            "suited": true,
+            "ev": -0.22633200000000003,
+            "playable": false,
+            "wins": 357434,
+            "draws": 58800,
+            "loses": 583766,
+            "win_ratio": 0.357434,
+            "draw_ratio": 0.0588,
+            "lose_ratio": 0.583766
+        },
+        "4c3d": {
+            "hero_cards": [
+                "4c",
+                "3d"
+            ],
+            "suited": false,
+            "ev": -0.296394,
+            "playable": false,
+            "wins": 321119,
+            "draws": 61368,
+            "loses": 617513,
+            "win_ratio": 0.321119,
+            "draw_ratio": 0.061368,
+            "lose_ratio": 0.617513
+        },
+        "4c2c": {
+            "hero_cards": [
+                "4c",
+                "2c"
+            ],
+            "suited": true,
+            "ev": -0.265019,
+            "playable": false,
+            "wins": 338554,
+            "draws": 57873,
+            "loses": 603573,
+            "win_ratio": 0.338554,
+            "draw_ratio": 0.057873,
+            "lose_ratio": 0.603573
+        },
+        "4c2d": {
+            "hero_cards": [
+                "4c",
+                "2d"
+            ],
+            "suited": false,
+            "ev": -0.335953,
+            "playable": false,
+            "wins": 301266,
+            "draws": 61515,
+            "loses": 637219,
+            "win_ratio": 0.301266,
+            "draw_ratio": 0.061515,
+            "lose_ratio": 0.637219
+        },
+        "3c3d": {
+            "hero_cards": [
+                "3c",
+                "3d"
+            ],
+            "suited": false,
+            "ev": 0.07366,
+            "playable": true,
+            "wins": 528247,
+            "draws": 17166,
+            "loses": 454587,
+            "win_ratio": 0.528247,
+            "draw_ratio": 0.017166,
+            "lose_ratio": 0.454587
+        },
+        "3c2c": {
+            "hero_cards": [
+                "3c",
+                "2c"
+            ],
+            "suited": true,
+            "ev": -0.28179200000000004,
+            "playable": false,
+            "wins": 330295,
+            "draws": 57618,
+            "loses": 612087,
+            "win_ratio": 0.330295,
+            "draw_ratio": 0.057618,
+            "lose_ratio": 0.612087
+        },
+        "3c2d": {
+            "hero_cards": [
+                "3c",
+                "2d"
+            ],
+            "suited": false,
+            "ev": -0.355883,
+            "playable": false,
+            "wins": 291526,
+            "draws": 61065,
+            "loses": 647409,
+            "win_ratio": 0.291526,
+            "draw_ratio": 0.061065,
+            "lose_ratio": 0.647409
+        },
+        "2c2d": {
+            "hero_cards": [
+                "2c",
+                "2d"
+            ],
+            "suited": false,
+            "ev": 0.008560999999999985,
+            "playable": true,
+            "wins": 494784,
+            "draws": 18993,
+            "loses": 486223,
+            "win_ratio": 0.494784,
+            "draw_ratio": 0.018993,
+            "lose_ratio": 0.486223
+        }
+    },
+    "heatmap": {
+        "labels": [
+            "A",
+            "K",
+            "Q",
+            "J",
+            "T",
+            "9",
+            "8",
+            "7",
+            "6",
+            "5",
+            "4",
+            "3",
+            "2"
+        ],
+        "ev_matrix": [
+            [
+                0.704667,
+                0.340581,
+                0.32487000000000005,
+                0.30778800000000006,
+                0.29358700000000004,
+                0.2555,
+                0.23861999999999994,
+                0.22076500000000004,
+                0.197519,
+                0.199069,
+                0.18094700000000002,
+                0.16496,
+                0.147436
+            ],
+            [
+                0.305775,
+                0.648316,
+                0.26623600000000003,
+                0.24946600000000002,
+                0.236433,
+                0.20060500000000003,
+                0.16771600000000003,
+                0.15031099999999997,
+                0.13303699999999996,
+                0.11573,
+                0.09906199999999998,
+                0.08141099999999996,
+                0.062497000000000025
+            ],
+            [
+                0.29011299999999995,
+                0.229346,
+                0.599013,
+                0.20668100000000006,
+                0.189079,
+                0.153055,
+                0.12023699999999993,
+                0.08663599999999999,
+                0.07188499999999998,
+                0.05370700000000006,
+                0.03814000000000001,
+                0.021444999999999992,
+                0.0014190000000000036
+            ],
+            [
+                0.271898,
+                0.211017,
+                0.16300000000000003,
+                0.54849,
+                0.150621,
+                0.11315399999999998,
+                0.08180199999999993,
+                0.043389999999999984,
+                0.013527999999999984,
+                -0.0015000000000000013,
+                -0.01675399999999999,
+                -0.035856,
+                -0.05368200000000006
+            ],
+            [
+                0.25494200000000006,
+                0.19264000000000003,
+                0.145949,
+                0.10456000000000004,
+                0.501183,
+                0.08174799999999999,
+                0.04869800000000002,
+                0.013034999999999963,
+                -0.021031000000000022,
+                -0.05521799999999999,
+                -0.06964599999999993,
+                -0.08621500000000004,
+                -0.10216699999999995
+            ],
+            [
+                0.21764600000000006,
+                0.155903,
+                0.107954,
+                0.063861,
+                0.030168000000000028,
+                0.44083599999999995,
+                0.014780999999999989,
+                -0.01769900000000002,
+                -0.05215299999999995,
+                -0.08507000000000003,
+                -0.12207499999999999,
+                -0.13526100000000002,
+                -0.14998900000000004
+            ],
+            [
+                0.19711499999999998,
+                0.11968399999999996,
+                0.071654,
+                0.029649000000000036,
+                -0.0062349999999999905,
+                -0.039185000000000025,
+                0.38521700000000003,
+                -0.04038400000000003,
+                -0.07593599999999995,
+                -0.10888900000000001,
+                -0.14580699999999996,
+                -0.18212900000000004,
+                -0.194031
+            ],
+            [
+                0.17597799999999997,
+                0.10317100000000001,
+                0.034997999999999974,
+                -0.006667000000000034,
+                -0.04090100000000002,
+                -0.07265300000000002,
+                -0.09888700000000006,
+                0.324642,
+                -0.09121299999999993,
+                -0.12643700000000008,
+                -0.16304599999999997,
+                -0.20011799999999996,
+                -0.23747399999999996
+            ],
+            [
+                0.15415399999999996,
+                0.08342700000000003,
+                0.02095600000000003,
+                -0.04349200000000003,
+                -0.07765499999999997,
+                -0.11037599999999997,
+                -0.134475,
+                -0.153534,
+                0.26467000000000007,
+                -0.13680900000000001,
+                -0.173427,
+                -0.20861000000000002,
+                -0.245628
+            ],
+            [
+                0.15502700000000003,
+                0.06498399999999999,
+                0.002703000000000011,
+                -0.05692599999999998,
+                -0.11337900000000006,
+                -0.14702099999999996,
+                -0.171342,
+                -0.18918800000000002,
+                -0.20084699999999994,
+                0.206208,
+                -0.17039799999999994,
+                -0.20529400000000003,
+                -0.24306499999999998
+            ],
+            [
+                0.13673200000000002,
+                0.04658399999999996,
+                -0.017386000000000013,
+                -0.07679999999999992,
+                -0.13177999999999995,
+                -0.18559600000000004,
+                -0.20960600000000001,
+                -0.22854600000000003,
+                -0.240718,
+                -0.237622,
+                0.141422,
+                -0.22633200000000003,
+                -0.265019
+            ],
+            [
+                0.11699799999999999,
+                0.02768100000000001,
+                -0.03652899999999998,
+                -0.09566200000000002,
+                -0.149399,
+                -0.20135500000000006,
+                -0.25045100000000003,
+                -0.26664799999999994,
+                -0.27797900000000003,
+                -0.27264000000000005,
+                -0.296394,
+                0.07366,
+                -0.28179200000000004
+            ],
+            [
+                0.09861900000000001,
+                0.009603999999999946,
+                -0.05497599999999997,
+                -0.11152099999999998,
+                -0.16599099999999994,
+                -0.21763000000000005,
+                -0.263723,
+                -0.307365,
+                -0.31921,
+                -0.313768,
+                -0.335953,
+                -0.355883,
+                0.008560999999999985
+            ]
+        ],
+        "playable_matrix": [
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+            ],
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                false,
+                false,
+                false,
+                false
+            ],
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            [
+                true,
+                true,
+                true,
+                true,
+                false,
+                false,
+                true,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            [
+                true,
+                true,
+                true,
+                false,
+                false,
+                false,
+                false,
+                true,
+                false,
+                false,
+                false,
+                false,
+                false
+            ],
+            [
+                true,
+                true,
+                true,
+                false,
+                false,
+                false,
+                false,
+                false,
+                true,
+                false,
+                false,
+                false,
+                false
+            ],
+            [
+                true,
+                true,
+                true,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                true,
+                false,
+                false,
+                false
+            ],
+            [
+                true,
+                true,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                true,
+                false,
+                false
+            ],
+            [
+                true,
+                true,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                true,
+                false
+            ],
+            [
+                true,
+                true,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                true
+            ]
+        ]
+    }
+}

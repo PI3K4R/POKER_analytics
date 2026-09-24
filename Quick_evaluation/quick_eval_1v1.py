@@ -187,7 +187,7 @@ def simulate_hand(
 
 if __name__ == "__main__":
     WRITE_MATCHUP_CSV = True
-    max_workers = os.cpu_count() - 5
+    max_workers = os.cpu_count()
     print("Max workers:", max_workers)
 
     rows_suited = [["Hand", "Wins", "Draws", "Loses", "Equity%"]]
